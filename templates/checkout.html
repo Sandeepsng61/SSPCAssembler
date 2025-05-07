@@ -1,0 +1,278 @@
+{% extends 'base.html' %}
+
+{% block title %}Checkout - SS PC Assembler{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="mb-4">Checkout</h1>
+    
+    <div class="row">
+        <!-- Checkout Form -->
+        <div class="col-lg-8 mb-4 mb-lg-0">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Shipping Information</h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('checkout') }}">
+                        {{ form.hidden_tag() }}
+                        
+                        <div class="row g-3">
+                            <!-- Full Name -->
+                            <div class="col-12">
+                                {{ form.full_name.label(class="form-label") }}
+                                {% if form.full_name.errors %}
+                                    {{ form.full_name(class="form-control is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.full_name.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.full_name(class="form-control") }}
+                                {% endif %}
+                            </div>
+                            
+                            <!-- Email and Phone -->
+                            <div class="col-md-6">
+                                {{ form.email.label(class="form-label") }}
+                                {% if form.email.errors %}
+                                    {{ form.email(class="form-control is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.email.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.email(class="form-control") }}
+                                {% endif %}
+                            </div>
+                            
+                            <div class="col-md-6">
+                                {{ form.phone.label(class="form-label") }}
+                                {% if form.phone.errors %}
+                                    {{ form.phone(class="form-control is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.phone.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.phone(class="form-control") }}
+                                {% endif %}
+                            </div>
+                            
+                            <!-- Address -->
+                            <div class="col-12">
+                                {{ form.address.label(class="form-label") }}
+                                {% if form.address.errors %}
+                                    {{ form.address(class="form-control is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.address.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.address(class="form-control") }}
+                                {% endif %}
+                            </div>
+                            
+                            <!-- City, State, Zip -->
+                            <div class="col-md-4">
+                                {{ form.city.label(class="form-label") }}
+                                {% if form.city.errors %}
+                                    {{ form.city(class="form-control is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.city.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.city(class="form-control") }}
+                                {% endif %}
+                            </div>
+                            
+                            <div class="col-md-4">
+                                {{ form.state.label(class="form-label") }}
+                                {% if form.state.errors %}
+                                    {{ form.state(class="form-control is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.state.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.state(class="form-control") }}
+                                {% endif %}
+                            </div>
+                            
+                            <div class="col-md-4">
+                                {{ form.zipcode.label(class="form-label") }}
+                                {% if form.zipcode.errors %}
+                                    {{ form.zipcode(class="form-control is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.zipcode.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.zipcode(class="form-control") }}
+                                {% endif %}
+                            </div>
+                            
+                            <!-- Country -->
+                            <div class="col-12">
+                                {{ form.country.label(class="form-label") }}
+                                {% if form.country.errors %}
+                                    {{ form.country(class="form-control is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.country.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.country(class="form-control") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <hr class="my-4">
+                        
+                        <h5 class="mb-3">Payment Method</h5>
+                        <div class="my-3">
+                            <div class="row g-3">
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="form-check border rounded p-3">
+                                        <input type="radio" class="form-check-input" id="payment_credit_card" name="payment_method" value="credit_card" {% if form.payment_method.data == 'credit_card' %}checked{% endif %} required>
+                                        <label class="form-check-label d-flex align-items-center" for="payment_credit_card">
+                                            <i class="fab fa-cc-visa me-2 fs-4 text-primary"></i>
+                                            <span>Credit Card</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="form-check border rounded p-3">
+                                        <input type="radio" class="form-check-input" id="payment_debit_card" name="payment_method" value="debit_card" {% if form.payment_method.data == 'debit_card' %}checked{% endif %} required>
+                                        <label class="form-check-label d-flex align-items-center" for="payment_debit_card">
+                                            <i class="fab fa-cc-mastercard me-2 fs-4 text-primary"></i>
+                                            <span>Debit Card</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="form-check border rounded p-3">
+                                        <input type="radio" class="form-check-input" id="payment_net_banking" name="payment_method" value="net_banking" {% if form.payment_method.data == 'net_banking' %}checked{% endif %} required>
+                                        <label class="form-check-label d-flex align-items-center" for="payment_net_banking">
+                                            <i class="fas fa-university me-2 fs-4 text-primary"></i>
+                                            <span>Net Banking</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="form-check border rounded p-3">
+                                        <input type="radio" class="form-check-input" id="payment_upi" name="payment_method" value="upi" {% if form.payment_method.data == 'upi' %}checked{% endif %} required>
+                                        <label class="form-check-label d-flex align-items-center" for="payment_upi">
+                                            <i class="fas fa-mobile-alt me-2 fs-4 text-primary"></i>
+                                            <span>UPI</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="form-check border rounded p-3">
+                                        <input type="radio" class="form-check-input" id="payment_cod" name="payment_method" value="cod" {% if form.payment_method.data == 'cod' %}checked{% endif %} required>
+                                        <label class="form-check-label d-flex align-items-center" for="payment_cod">
+                                            <i class="fas fa-money-bill-wave me-2 fs-4 text-primary"></i>
+                                            <span>Cash on Delivery</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {% if form.payment_method.errors %}
+                                <div class="text-danger mt-2">
+                                    {% for error in form.payment_method.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <hr class="my-4">
+                        
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ url_for('cart') }}" class="btn btn-outline-primary">
+                                <i class="fas fa-arrow-left me-2"></i>Back to Cart
+                            </a>
+                            {{ form.submit(class="btn btn-primary") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Order Summary -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Order Summary</h5>
+                </div>
+                <div class="card-body">
+                    {% for item in cart %}
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="d-flex align-items-center">
+                                <img src="{{ item.product.image_url }}" alt="{{ item.product.name }}" class="me-2" width="40" height="40" style="object-fit: contain;">
+                                <div>
+                                    <p class="mb-0">{{ item.product.name }}</p>
+                                    <small class="text-muted">Qty: {{ item.quantity }}</small>
+                                </div>
+                            </div>
+                            <span>₹{{ "%.2f"|format(item.product.price * item.quantity) }}</span>
+                        </div>
+                    {% endfor %}
+                    
+                    <hr>
+                    
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Subtotal:</span>
+                        <span>₹{{ "%.2f"|format(total) }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Shipping:</span>
+                        <span class="text-success">Free</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Taxes:</span>
+                        <span>Included</span>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="d-flex justify-content-between">
+                        <span class="fw-bold">Total:</span>
+                        <span class="fw-bold text-primary fs-5">₹{{ "%.2f"|format(total) }}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Secure Payment Info -->
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="mb-3">Secure Checkout</h5>
+                    <p class="small mb-3">Your payment information is processed securely. We do not store credit card details nor have access to your credit card information.</p>
+                    <div class="d-flex justify-content-between">
+                        <i class="fab fa-cc-visa fa-2x text-muted"></i>
+                        <i class="fab fa-cc-mastercard fa-2x text-muted"></i>
+                        <i class="fab fa-cc-amex fa-2x text-muted"></i>
+                        <i class="fab fa-cc-discover fa-2x text-muted"></i>
+                        <i class="fab fa-cc-paypal fa-2x text-muted"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+
+{% block title %}Customer Support - PC Assembler{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Contact Customer Support</h4>
+                </div>
+                <div class="card-body">
+                    <div class="mb-4">
+                        <p>Our support team is here to help you with any questions or issues you might have with your order or our products.</p>
+                    </div>
+                    
+                    <form id="support-form" method="POST" action="{{ url_for('support_submit') }}">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required 
+                                   value="{{ current_user.full_name() if current_user.is_authenticated else '' }}">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" name="email" required
+                                   value="{{ current_user.email if current_user.is_authenticated else '' }}">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="order_id" class="form-label">Order ID (if applicable)</label>
+                            <input type="text" class="form-control" id="order_id" name="order_id" 
+                                   value="{{ request.args.get('order_id', '') }}">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Subject</label>
+                            <select class="form-select" id="subject" name="subject" required>
+                                <option value="">Select a subject</option>
+                                <option value="order_status" {% if request.args.get('subject') == 'order_status' %}selected{% endif %}>Order Status</option>
+                                <option value="return_exchange">Return or Exchange</option>
+                                <option value="product_question">Product Question</option>
+                                <option value="technical_support">Technical Support</option>
+                                <option value="website_issue">Website Issue</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" id="message" name="message" rows="6" required></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="copy_me" name="copy_me" checked>
+                                <label class="form-check-label" for="copy_me">
+                                    Send me a copy of this message
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane me-2"></i>Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="card shadow-sm mt-4">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">Other Ways to Contact Us</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0 me-3">
+                                    <div class="bg-primary rounded-circle p-3 text-white">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h5 class="mb-1">Phone Support</h5>
+                                    <p class="mb-0">+91 1234567890</p>
+                                    <p class="text-muted small mb-0">Monday to Saturday, 9am - 6pm</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0 me-3">
+                                    <div class="bg-primary rounded-circle p-3 text-white">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h5 class="mb-1">Email Support</h5>
+                                    <p class="mb-0">support@pcassembler.com</p>
+                                    <p class="text-muted small mb-0">Response within 24 hours</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0 me-3">
+                                    <div class="bg-primary rounded-circle p-3 text-white">
+                                        <i class="fas fa-comments"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h5 class="mb-1">Live Chat</h5>
+                                    <p class="mb-0">Available on our website</p>
+                                    <p class="text-muted small mb-0">Monday to Saturday, 9am - 5pm</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0 me-3">
+                                    <div class="bg-primary rounded-circle p-3 text-white">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h5 class="mb-1">Store Location</h5>
+                                    <p class="mb-0">123 Tech Street, Bangalore</p>
+                                    <p class="text-muted small mb-0">Monday to Saturday, 10am - 7pm</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="alert alert-info mt-4">
+                <div class="d-flex">
+                    <div class="flex-shrink-0 me-3">
+                        <i class="fas fa-info-circle fa-2x"></i>
+                    </div>
+                    <div>
+                        <h5>Faster Resolution for Order Issues</h5>
+                        <p class="mb-0">For the quickest response regarding order issues, please include your order number in your message. Our team will prioritize your inquiry and get back to you as soon as possible.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Support Form Success Modal -->
+<div class="modal fade" id="supportSuccessModal" tabindex="-1" aria-labelledby="supportSuccessModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="supportSuccessModalLabel">Message Sent Successfully</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center mb-4">
+                    <i class="fas fa-check-circle text-success fa-4x"></i>
+                </div>
+                <p>Thank you for contacting our support team. We have received your message and will respond to your inquiry as soon as possible.</p>
+                <p>A confirmation email has been sent to your email address.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('support-form');
+        
+        // Check if we should show success modal (e.g. after form submission)
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('success') === 'true') {
+            const successModal = new bootstrap.Modal(document.getElementById('supportSuccessModal'));
+            successModal.show();
+            
+            // Clean up the URL
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+        
+        // For now, we'll just prevent form submission and show the success modal
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // In a real implementation, this would submit the form data to the server
+            // For now, we'll just simulate a successful submission
+            const successModal = new bootstrap.Modal(document.getElementById('supportSuccessModal'));
+            successModal.show();
+            
+            // Reset form
+            form.reset();
+        });
+    });
+</script>
+{% endblock %}

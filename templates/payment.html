@@ -1,0 +1,234 @@
+{% extends 'base.html' %}
+
+{% block title %}Payment - SS PC Assembler{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="mb-3">Payment</h1>
+            <p class="lead">Complete your payment to finalize your order</p>
+        </div>
+    </div>
+    
+    <div class="row">
+        <!-- Payment Form -->
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Payment Information</h5>
+                </div>
+                <div class="card-body">
+                    {% if checkout_info.payment_method == 'credit_card' or checkout_info.payment_method == 'debit_card' %}
+                        <form method="POST" action="{{ url_for('payment') }}">
+                            {{ form.hidden_tag() }}
+                            
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    {{ form.card_number.label(class="form-label") }}
+                                    {% if form.card_number.errors %}
+                                        {{ form.card_number(class="form-control is-invalid", placeholder="XXXX XXXX XXXX XXXX") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.card_number.errors %}
+                                                {{ error }}
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.card_number(class="form-control", placeholder="XXXX XXXX XXXX XXXX") }}
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-12">
+                                    {{ form.card_holder.label(class="form-label") }}
+                                    {% if form.card_holder.errors %}
+                                        {{ form.card_holder(class="form-control is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.card_holder.errors %}
+                                                {{ error }}
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.card_holder(class="form-control") }}
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label class="form-label">Expiration Date</label>
+                                    <div class="input-group">
+                                        {{ form.expiration_month(class="form-select") }}
+                                        <span class="input-group-text">/</span>
+                                        {{ form.expiration_year(class="form-select") }}
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    {{ form.cvv.label(class="form-label") }}
+                                    {% if form.cvv.errors %}
+                                        {{ form.cvv(class="form-control is-invalid", placeholder="XXX") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.cvv.errors %}
+                                                {{ error }}
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.cvv(class="form-control", placeholder="XXX") }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid mt-4">
+                                {{ form.submit(class="btn btn-primary btn-lg") }}
+                            </div>
+                        </form>
+                    {% elif checkout_info.payment_method == 'net_banking' %}
+                        <div class="py-3">
+                            <h5 class="mb-4">Net Banking</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="bankOption" id="bank1" checked>
+                                        <label class="form-check-label" for="bank1">
+                                            HDFC Bank
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="bankOption" id="bank2">
+                                        <label class="form-check-label" for="bank2">
+                                            ICICI Bank
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="bankOption" id="bank3">
+                                        <label class="form-check-label" for="bank3">
+                                            State Bank of India
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="bankOption" id="bank4">
+                                        <label class="form-check-label" for="bank4">
+                                            Axis Bank
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-grid mt-4">
+                                <form method="POST" action="{{ url_for('payment') }}">
+                                    {{ form.hidden_tag() }}
+                                    <!-- Add hidden fields for non-card payments -->
+                                    <input type="hidden" name="card_number" value="">
+                                    <input type="hidden" name="card_holder" value="">
+                                    <input type="hidden" name="cvv" value="">
+                                    <button type="submit" class="btn btn-primary btn-lg">Proceed to Bank</button>
+                                </form>
+                            </div>
+                        </div>
+                    {% elif checkout_info.payment_method == 'upi' %}
+                        <div class="py-3">
+                            <h5 class="mb-4">UPI Payment</h5>
+                            <div class="mb-3">
+                                <label class="form-label">UPI ID</label>
+                                <input type="text" class="form-control" placeholder="yourname@upi">
+                                <div class="form-text">Enter your UPI ID like yourname@ybl or yourname@okhdfcbank</div>
+                            </div>
+                            <div class="d-grid mt-4">
+                                <form method="POST" action="{{ url_for('payment') }}">
+                                    {{ form.hidden_tag() }}
+                                    <!-- Add hidden fields for non-card payments -->
+                                    <input type="hidden" name="card_number" value="">
+                                    <input type="hidden" name="card_holder" value="">
+                                    <input type="hidden" name="cvv" value="">
+                                    <button type="submit" class="btn btn-primary btn-lg">Pay Now</button>
+                                </form>
+                            </div>
+                        </div>
+                    {% elif checkout_info.payment_method == 'cod' %}
+                        <div class="py-4 text-center">
+                            <i class="fas fa-truck-loading fa-3x mb-3 text-muted"></i>
+                            <h5 class="mb-3">Cash on Delivery</h5>
+                            <p>You have selected Cash on Delivery. You will pay when your order is delivered.</p>
+                            <form method="POST" action="{{ url_for('payment') }}">
+                                {{ form.hidden_tag() }}
+                                <!-- Add hidden fields for non-card payments -->
+                                <input type="hidden" name="card_number" value="">
+                                <input type="hidden" name="card_holder" value="">
+                                <input type="hidden" name="cvv" value="">
+                                <div class="d-grid mt-4">
+                                    <button type="submit" class="btn btn-primary btn-lg">Place Order</button>
+                                </div>
+                            </form>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="d-flex justify-content-between">
+                <a href="{{ url_for('checkout') }}" class="btn btn-outline-primary">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Checkout
+                </a>
+            </div>
+        </div>
+        
+        <!-- Order Summary -->
+        <div class="col-lg-4">
+            <div class="card sticky-lg-top" style="top: 100px; z-index: 10;">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Order Summary</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <h6>Shipping Information</h6>
+                        <p class="mb-1">{{ checkout_info.full_name }}</p>
+                        <p class="mb-1">{{ checkout_info.address }}</p>
+                        <p class="mb-1">{{ checkout_info.city }}, {{ checkout_info.state }} {{ checkout_info.zipcode }}</p>
+                        <p class="mb-1">{{ checkout_info.country }}</p>
+                        <p class="mb-1">{{ checkout_info.phone }}</p>
+                        <p class="mb-0">{{ checkout_info.email }}</p>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="mb-3">
+                        <h6>Payment Method</h6>
+                        <p class="mb-0">{{ checkout_info.payment_method|replace('_', ' ')|capitalize }}</p>
+                    </div>
+                    
+                    <hr>
+                    
+                    {% for item in cart %}
+                        <div class="d-flex mb-2">
+                            <div class="flex-grow-1">
+                                <small>{{ item.product.name }} (x{{ item.quantity }})</small>
+                            </div>
+                            <div>
+                                <small>₹{{ "%.2f"|format(item.product.price * item.quantity) }}</small>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    
+                    <hr>
+                    
+                    <div class="d-flex justify-content-between">
+                        <span>Subtotal:</span>
+                        <span>₹{{ "%.2f"|format(total) }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Shipping:</span>
+                        <span>Free</span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <strong>Total:</strong>
+                        <strong class="text-primary">₹{{ "%.2f"|format(total) }}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

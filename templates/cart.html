@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+
+{% block title %}Shopping Cart - SS PC Assembler{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="mb-4">Shopping Cart</h1>
+    
+    {% if cart|length > 0 %}
+        <div class="row">
+            <!-- Cart Items -->
+            <div class="col-lg-8">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Cart Items ({{ cart|length }})</h5>
+                    </div>
+                    <div class="card-body">
+                        {% for item in cart %}
+                            <div class="card mb-3 cart-item">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-2 col-sm-3 mb-3 mb-md-0">
+                                            <img src="{{ item.product.image_url }}" class="img-fluid rounded" alt="{{ item.product.name }}">
+                                        </div>
+                                        <div class="col-md-4 col-sm-9 mb-3 mb-md-0">
+                                            <h5 class="mb-1">{{ item.product.name }}</h5>
+                                            <p class="text-muted small mb-0">{{ item.product.category|capitalize }}</p>
+                                        </div>
+                                        <div class="col-md-2 col-sm-4 mb-3 mb-md-0">
+                                            <span class="text-primary fw-bold">₹{{ "%.2f"|format(item.product.price) }}</span>
+                                        </div>
+                                        <div class="col-md-2 col-sm-4 mb-3 mb-md-0">
+                                            <div class="quantity-control d-flex align-items-center">
+                                                <button class="btn btn-sm btn-outline-secondary quantity-decrement">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                                <input type="number" class="form-control mx-2 text-center cart-quantity-input" 
+                                                       value="{{ item.quantity }}" min="1" max="{{ item.product.stock }}"
+                                                       data-product-id="{{ item.product.id }}">
+                                                <button class="btn btn-sm btn-outline-secondary quantity-increment">
+                                                    <i class="fas fa-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 col-sm-4 text-end">
+                                            <span class="fw-bold item-total">₹{{ "%.2f"|format(item.product.price * item.quantity) }}</span>
+                                            <div class="mt-2">
+                                                <button class="btn btn-sm btn-danger remove-from-cart" data-product-id="{{ item.product.id }}">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                                <form id="remove-form-{{ item.product.id }}" action="{{ url_for('remove_from_cart') }}" method="POST" class="d-none">
+                                                    <input type="hidden" name="product_id" value="{{ item.product.id }}">
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="card-footer bg-light d-flex justify-content-between align-items-center">
+                        <a href="{{ url_for('components') }}" class="btn btn-outline-primary">
+                            <i class="fas fa-arrow-left me-2"></i>Continue Shopping
+                        </a>
+                        <form action="{{ url_for('empty_cart') }}" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-outline-danger" id="empty-cart-button">
+                                <i class="fas fa-trash me-2"></i>Empty Cart
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cart Summary -->
+            <div class="col-lg-4">
+                <div class="card shadow-sm mb-4 sticky-lg-top" style="top: 20px; z-index: 1;">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Cart Summary</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Subtotal:</span>
+                            <span>₹{{ "%.2f"|format(total) }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Shipping:</span>
+                            <span class="text-success">Free</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between mb-4">
+                            <span class="fw-bold">Total:</span>
+                            <span class="fw-bold text-primary" id="cart-total">₹{{ "%.2f"|format(total) }}</span>
+                        </div>
+                        
+                        <a href="{{ url_for('checkout') }}" class="btn btn-primary w-100 {% if total <= 0 %}disabled{% endif %}">
+                            <i class="fas fa-credit-card me-2"></i>Proceed to Checkout
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Support Section -->
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="mb-3">Need Help?</h5>
+                        <p class="mb-3 small">If you have any questions about your order, feel free to contact our support team.</p>
+                        <div class="mb-2 small">
+                            <i class="fas fa-phone me-2 text-primary"></i>+91 123 456 7890
+                        </div>
+                        <div class="mb-2 small">
+                            <i class="fas fa-envelope me-2 text-primary"></i>support@sspcassembler.com
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="card shadow text-center py-5">
+            <div class="card-body">
+                <div class="display-1 text-muted mb-4">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <h2 class="mb-3">Your Shopping Cart is Empty</h2>
+                <p class="lead mb-4">Looks like you haven't added any items to your cart yet.</p>
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="{{ url_for('components') }}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-shopping-bag me-2"></i>Browse Components
+                    </a>
+                    <a href="{{ url_for('pc_builder') }}" class="btn btn-outline-primary btn-lg">
+                        <i class="fas fa-tools me-2"></i>Use PC Builder
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    
+    <!-- Product Recommendations -->
+    {% if cart|length > 0 %}
+        <div class="mt-5">
+            <h2 class="mb-4">You May Also Like</h2>
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+                {% for product in recommended_products if recommended_products %}
+                    <div class="col">
+                        <div class="card h-100 product-card">
+                            <img src="{{ product.image_url }}" class="card-img-top" alt="{{ product.name }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ product.name }}</h5>
+                                <p class="card-text text-primary fw-bold">₹{{ "%.2f"|format(product.price) }}</p>
+                            </div>
+                            <div class="card-footer bg-transparent border-top-0 d-flex gap-2">
+                                <a href="{{ url_for('product_detail', product_id=product.id) }}" class="btn btn-outline-primary flex-grow-1">View Details</a>
+                                <form action="{{ url_for('add_to_cart') }}" method="POST">
+                                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                                    <input type="hidden" name="quantity" value="1">
+                                    <button type="submit" class="btn btn-primary" {% if product.stock <= 0 %}disabled{% endif %}>
+                                        <i class="fas fa-cart-plus"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/cart.js') }}"></script>
+{% endblock %}

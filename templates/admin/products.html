@@ -1,0 +1,252 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Products - Admin Panel{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-lg-2 col-md-3 mb-4">
+            <div class="card shadow">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">Admin Panel</h5>
+                </div>
+                <div class="card-body p-0">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <a href="{{ url_for('admin.index') }}" class="text-decoration-none text-reset d-block">
+                                <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="list-group-item active">
+                            <a href="{{ url_for('admin.products') }}" class="text-decoration-none text-reset d-block">
+                                <i class="fas fa-box me-2"></i> Products
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{{ url_for('admin.orders') }}" class="text-decoration-none text-reset d-block">
+                                <i class="fas fa-shopping-cart me-2"></i> Orders
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{{ url_for('admin.users') }}" class="text-decoration-none text-reset d-block">
+                                <i class="fas fa-users me-2"></i> Users
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{{ url_for('index') }}" class="text-decoration-none text-reset d-block">
+                                <i class="fas fa-home me-2"></i> Back to Site
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-lg-10 col-md-9">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h3">Manage Products</h1>
+                <a href="{{ url_for('admin.add_product') }}" class="btn btn-success">
+                    <i class="fas fa-plus me-2"></i>Add New Product
+                </a>
+            </div>
+            
+            <!-- Filter Bar -->
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <form method="GET" action="{{ url_for('admin.products') }}" class="row g-3">
+                        <div class="col-md-6">
+                            <select name="category" class="form-select">
+                                <option value="">All Categories</option>
+                                {% for category in categories %}
+                                <option value="{{ category.id }}" {% if category.id == current_category %}selected{% endif %}>{{ category.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <input type="text" name="search" class="form-control" placeholder="Search products...">
+                                <button class="btn btn-outline-secondary" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary w-100">Filter</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Products Table -->
+            <div class="card shadow">
+                <div class="card-body">
+                    {% if products.items %}
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Category</th>
+                                        <th>Price</th>
+                                        <th>Stock</th>
+                                        <th>Featured</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for product in products.items %}
+                                    <tr>
+                                        <td>{{ product.id }}</td>
+                                        <td>
+                                            <img src="{{ product.image_url }}" alt="{{ product.name }}" height="50" width="50" style="object-fit: contain;">
+                                        </td>
+                                        <td>{{ product.name }}</td>
+                                        <td>{{ product.category|capitalize }}</td>
+                                        <td>₹{{ "%.2f"|format(product.price) }}</td>
+                                        <td>
+                                            {% if product.stock < 10 %}
+                                                <span class="badge bg-danger">{{ product.stock }}</span>
+                                            {% else %}
+                                                {{ product.stock }}
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if product.featured %}
+                                                <span class="badge bg-success">Yes</span>
+                                            {% else %}
+                                                <span class="badge bg-secondary">No</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <a href="{{ url_for('admin.edit_product', product_id=product.id) }}" class="btn btn-sm btn-primary">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a href="{{ url_for('product_detail', product_id=product.id) }}" class="btn btn-sm btn-info" target="_blank">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <form action="{{ url_for('admin.delete_product', product_id=product.id) }}" method="POST" class="d-inline">
+                                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete {{ product.name }}? This action cannot be undone.');">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            
+                                            <!-- Delete Modal -->
+                                            <div class="modal fade" id="deleteModal{{ product.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ product.id }}" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="deleteModalLabel{{ product.id }}">Confirm Delete</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>Are you sure you want to delete <strong>{{ product.name }}</strong>?</p>
+                                                            <p class="text-danger">This action cannot be undone.</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                            <form action="{{ url_for('admin.delete_product', product_id=product.id) }}" method="POST">
+                                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- Pagination -->
+                        <nav aria-label="Products pagination" class="mt-4">
+                            <ul class="pagination justify-content-center">
+                                {% if products.has_prev %}
+                                <li class="page-item">
+                                    <a class="page-link" href="{{ url_for('admin.products', page=products.prev_num, category=current_category) }}">Previous</a>
+                                </li>
+                                {% else %}
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">Previous</a>
+                                </li>
+                                {% endif %}
+                                
+                                {% for page_num in products.iter_pages(left_edge=1, right_edge=1, left_current=2, right_current=2) %}
+                                    {% if page_num %}
+                                        {% if page_num == products.page %}
+                                        <li class="page-item active">
+                                            <a class="page-link" href="#">{{ page_num }}</a>
+                                        </li>
+                                        {% else %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ url_for('admin.products', page=page_num, category=current_category) }}">{{ page_num }}</a>
+                                        </li>
+                                        {% endif %}
+                                    {% else %}
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#">...</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                                
+                                {% if products.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="{{ url_for('admin.products', page=products.next_num, category=current_category) }}">Next</a>
+                                </li>
+                                {% else %}
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    {% else %}
+                        <div class="text-center py-5">
+                            <div class="display-1 text-muted mb-3">
+                                <i class="fas fa-box-open"></i>
+                            </div>
+                            <h4>No Products Found</h4>
+                            <p class="text-muted">Try adjusting your search or filter to find what you're looking for.</p>
+                            <a href="{{ url_for('admin.products') }}" class="btn btn-primary">Clear Filters</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- View Product Modals -->
+{% for product in products.items %}
+<div class="modal fade" id="viewModal{{ product.id }}" tabindex="-1" aria-labelledby="viewModalLabel{{ product.id }}" aria-hidden="true" data-reset-on-close="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewModalLabel{{ product.id }}">Product Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center py-4">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a href="{{ url_for('admin.edit_product', product_id=product.id) }}" class="btn btn-primary">
+                    <i class="fas fa-edit me-2"></i>Edit Product
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

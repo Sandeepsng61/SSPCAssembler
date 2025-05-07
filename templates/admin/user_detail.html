@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+
+{% block title %}User Details - Admin Panel{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header pb-0 d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0">User Details: {{ user.username }}</h6>
+                    <a href="{{ url_for('admin.users') }}" class="btn btn-sm btn-primary">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Users
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="text-uppercase text-sm">Account Information</h6>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <th>ID</th>
+                                            <td>{{ user.id }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Username</th>
+                                            <td>{{ user.username }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Email</th>
+                                            <td>{{ user.email }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Role</th>
+                                            <td>
+                                                <span class="badge {% if user.is_admin %}bg-success{% else %}bg-info{% endif %}">
+                                                    {% if user.is_admin %}Admin{% else %}User{% endif %}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Registered</th>
+                                            <td>{{ user.created_at.strftime('%d-%m-%Y %H:%M') }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <h6 class="text-uppercase text-sm">Contact Information</h6>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <th>Full Name</th>
+                                            <td>{{ user.full_name() or 'Not provided' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Phone</th>
+                                            <td>{{ user.phone or 'Not provided' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Address</th>
+                                            <td>{{ user.address or 'Not provided' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>City</th>
+                                            <td>{{ user.city or 'Not provided' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>State</th>
+                                            <td>{{ user.state or 'Not provided' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Country</th>
+                                            <td>{{ user.country or 'Not provided' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>ZIP Code</th>
+                                            <td>{{ user.zipcode or 'Not provided' }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <h6 class="text-uppercase text-sm">Account Activity</h6>
+                            <div class="row mt-3">
+                                <div class="col-md-4 mb-3">
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h3 class="mb-0">{{ user.orders|length }}</h3>
+                                            <p class="text-sm mb-0">Orders</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h3 class="mb-0">{{ user.cart_items|length }}</h3>
+                                            <p class="text-sm mb-0">Cart Items</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h3 class="mb-0">{{ user.wishlist_items|length }}</h3>
+                                            <p class="text-sm mb-0">Wishlist Items</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {% if user.orders %}
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <h6 class="text-uppercase text-sm">Recent Orders</h6>
+                            <div class="table-responsive">
+                                <table class="table align-items-center mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Order ID</th>
+                                            <th>Date</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for order in user.orders[:5] %}
+                                        <tr>
+                                            <td>{{ order.id }}</td>
+                                            <td>{{ order.created_at.strftime('%d-%m-%Y') }}</td>
+                                            <td>₹{{ "%.2f"|format(order.total_amount) }}</td>
+                                            <td>
+                                                <span class="badge {% if order.status == 'pending' %}bg-warning
+                                                                  {% elif order.status == 'processing' %}bg-info
+                                                                  {% elif order.status == 'shipped' %}bg-primary
+                                                                  {% elif order.status == 'completed' %}bg-success
+                                                                  {% else %}bg-secondary{% endif %}">
+                                                    {{ order.status.capitalize() }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <a href="{{ url_for('admin.order_detail', order_id=order.id) }}" class="btn btn-sm btn-info">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

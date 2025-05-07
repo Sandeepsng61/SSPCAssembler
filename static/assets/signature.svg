@@ -1,0 +1,5 @@
+<svg width="200" height="80" xmlns="http://www.w3.org/2000/svg">
+  <path d="M10,50 C30,20 50,80 70,40 C90,10 120,60 150,30 C160,25 180,40 190,50" 
+        fill="none" stroke="blue" stroke-width="2"/>
+  <text x="70" y="75" font-family="Arial" font-size="12" text-anchor="middle">Authorized Signature</text>
+</svg>

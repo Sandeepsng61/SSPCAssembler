@@ -1,0 +1,244 @@
+{% extends 'base.html' %}
+
+{% block title %}Search Results - SS PC Assembler{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="mb-3">Search Results</h1>
+            <p class="lead">
+                {% if products|length > 0 %}
+                    Showing {{ products|length }} result{% if products|length != 1 %}s{% endif %} for: <span class="fw-bold">"{{ query }}"</span>
+                {% else %}
+                    No results found for: <span class="fw-bold">"{{ query }}"</span>
+                {% endif %}
+            </p>
+        </div>
+    </div>
+    
+    <!-- Search Filters -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <form action="{{ url_for('search') }}" method="GET" class="row g-3 align-items-end">
+                        <input type="hidden" name="q" value="{{ query }}">
+                        
+                        <div class="col-md-3">
+                            <label class="form-label">Category</label>
+                            <select name="category" class="form-select">
+                                <option value="">All Categories</option>
+                                <option value="cpu">CPU</option>
+                                <option value="gpu">GPU</option>
+                                <option value="motherboard">Motherboard</option>
+                                <option value="ram">RAM</option>
+                                <option value="storage">Storage</option>
+                                <option value="psu">Power Supply</option>
+                                <option value="case">Case</option>
+                                <option value="cooling">Cooling</option>
+                                <option value="peripherals">Peripherals</option>
+                                <option value="monitor">Monitor</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <label class="form-label">Price Range</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" name="min_price" placeholder="Min" value="">
+                                <span class="input-group-text">to</span>
+                                <input type="number" class="form-control" name="max_price" placeholder="Max" value="">
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <label class="form-label">Sort By</label>
+                            <select name="sort" class="form-select">
+                                <option value="relevance">Relevance</option>
+                                <option value="price_asc">Price: Low to High</option>
+                                <option value="price_desc">Price: High to Low</option>
+                                <option value="newest">Newest</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <button type="submit" class="btn btn-primary w-100">Apply Filters</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Search Results -->
+    {% if products|length > 0 %}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+        {% for product in products %}
+        <div class="col">
+            <div class="card h-100 product-card">
+                <img src="{{ get_default_product_image(product) }}" class="card-img-top" alt="{{ product.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="text-muted small">{{ product.category|capitalize }}</p>
+                    <p class="card-text text-muted small">{{ product.description|truncate(100) }}</p>
+                    <p class="card-text fs-5 fw-bold text-primary">₹{{ "%.2f"|format(product.price) }}</p>
+                    <p class="card-text">
+                        <span class="badge {{ product.stock > 0 and 'bg-success' or 'bg-danger' }}">
+                            {{ product.stock > 0 and 'In Stock' or 'Out of Stock' }}
+                        </span>
+                    </p>
+                </div>
+                <div class="card-footer bg-transparent border-top-0 d-flex gap-2">
+                    <a href="{{ url_for('product_detail', product_id=product.id) }}" class="btn btn-outline-primary flex-grow-1">View Details</a>
+                    <form action="{{ url_for('add_to_cart') }}" method="POST" class="d-inline">
+                        <input type="hidden" name="product_id" value="{{ product.id }}">
+                        <input type="hidden" name="quantity" value="1">
+                        <button type="submit" class="btn btn-primary" {% if product.stock <= 0 %}disabled{% endif %}>
+                            <i class="fas fa-cart-plus"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <!-- Pagination -->
+    {% if products|length > 12 %}
+    <div class="row mt-5">
+        <div class="col-12">
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    {% endif %}
+    
+    {% else %}
+    <!-- No Results -->
+    <div class="text-center py-5">
+        <div class="display-1 text-muted mb-3">
+            <i class="fas fa-search"></i>
+        </div>
+        <h3>No Results Found</h3>
+        <p class="text-muted mb-4">We couldn't find any products matching your search query.</p>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form action="{{ url_for('search') }}" method="GET" class="mb-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control form-control-lg" name="q" placeholder="Try another search" aria-label="Search">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fas fa-search me-2"></i>Search
+                        </button>
+                    </div>
+                </form>
+                <a href="{{ url_for('components') }}" class="btn btn-outline-primary">
+                    <i class="fas fa-shopping-bag me-2"></i>Browse All Components
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    <!-- Suggested Products -->
+    {% if products|length == 0 %}
+    <div class="row mt-5">
+        <div class="col-12">
+            <h3 class="mb-4">Popular Products</h3>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                <div class="col">
+                    <div class="card h-100 product-card">
+                        <img src="{{ url_for('static', filename='images/categories/cpu.svg') }}" class="card-img-top" alt="Intel Core i9">
+                        <div class="card-body">
+                            <h5 class="card-title">Intel Core i9-13900K</h5>
+                            <p class="text-muted small">CPU</p>
+                            <p class="card-text text-muted small">Intel's flagship desktop processor with 24 cores (8P+16E) and 32 threads.</p>
+                            <p class="card-text fs-5 fw-bold text-primary">₹55,999.99</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-top-0">
+                            <a href="#" class="btn btn-outline-primary w-100">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col">
+                    <div class="card h-100 product-card">
+                        <img src="{{ url_for('static', filename='images/categories/gpu.svg') }}" class="card-img-top" alt="NVIDIA RTX 4090">
+                        <div class="card-body">
+                            <h5 class="card-title">NVIDIA RTX 4090</h5>
+                            <p class="text-muted small">GPU</p>
+                            <p class="card-text text-muted small">NVIDIA's flagship graphics card with Ada Lovelace architecture, 24GB GDDR6X memory.</p>
+                            <p class="card-text fs-5 fw-bold text-primary">₹169,999.99</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-top-0">
+                            <a href="#" class="btn btn-outline-primary w-100">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col">
+                    <div class="card h-100 product-card">
+                        <img src="{{ url_for('static', filename='images/categories/ram.svg') }}" class="card-img-top" alt="G.Skill RAM">
+                        <div class="card-body">
+                            <h5 class="card-title">G.Skill Trident Z5 RGB 32GB DDR5-6000</h5>
+                            <p class="text-muted small">RAM</p>
+                            <p class="card-text text-muted small">Ultra-fast DDR5 memory with RGB lighting, optimized for the latest Intel and AMD platforms.</p>
+                            <p class="card-text fs-5 fw-bold text-primary">₹18,999.99</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-top-0">
+                            <a href="#" class="btn btn-outline-primary w-100">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col">
+                    <div class="card h-100 product-card">
+                        <img src="{{ url_for('static', filename='images/categories/motherboard.svg') }}" class="card-img-top" alt="MSI Motherboard">
+                        <div class="card-body">
+                            <h5 class="card-title">MSI MPG B650 CARBON WIFI</h5>
+                            <p class="text-muted small">Motherboard</p>
+                            <p class="card-text text-muted small">High-performance AMD B650 motherboard with Wi-Fi 6E, optimized for AMD Ryzen 7000 series processors.</p>
+                            <p class="card-text fs-5 fw-bold text-primary">₹29,999.99</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-top-0">
+                            <a href="#" class="btn btn-outline-primary w-100">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    <!-- PC Builder Promo -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card bg-primary text-white">
+                <div class="card-body p-4">
+                    <div class="row align-items-center">
+                        <div class="col-lg-8 mb-3 mb-lg-0">
+                            <h3>Ready to Build Your Custom PC?</h3>
+                            <p class="mb-0">Use our PC Builder tool to create a system that perfectly matches your requirements.</p>
+                        </div>
+                        <div class="col-lg-4 text-lg-end">
+                            <a href="{{ url_for('pc_builder') }}" class="btn btn-light btn-lg">
+                                <i class="fas fa-tools me-2"></i>Start Building
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

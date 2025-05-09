@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ category_display_name|default(category|capitalize) }} - TechTrove{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for('components') }}">Components</a></li>
+            {% if category.startswith('peripherals_') %}
+            <li class="breadcrumb-item"><a href="{{ url_for('component_category', category='peripherals') }}">Peripherals</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ category_display_name|default(category|capitalize) }}</li>
+            {% else %}
+            <li class="breadcrumb-item active" aria-current="page">{{ category_display_name|default(category|capitalize) }}</li>
+            {% endif %}
+        </ol>
+    </nav>
+    
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>{{ category_display_name|default(category|capitalize) }}</h1>
+        {% if not category.startswith('peripherals_') %}
+        <a href="{{ url_for('pc_builder') }}" class="btn btn-primary">
+            <i class="fas fa-tools me-2"></i>Use PC Builder
+        </a>
+        {% endif %}
+    </div>
+    
+    <!-- Category Description -->
+    <div class="card mb-4">
+        <div class="card-body">
+            {% if category == 'cpu' %}
+                <h5>Central Processing Units (CPUs)</h5>
+                <p>The CPU is the primary component of a computer that performs most of the processing inside a computer. Choose from the latest Intel and AMD processors for your build.</p>
+            {% elif category == 'gpu' %}
+                <h5>Graphics Processing Units (GPUs)</h5>
+                <p>The GPU is a specialized electronic circuit designed to rapidly manipulate and alter memory to accelerate the creation of images. Essential for gaming and graphics-intensive workloads.</p>
+            {% elif category == 'motherboard' %}
+                <h5>Motherboards</h5>
+                <p>The motherboard is the main circuit board of your computer that connects all components together. Choose a motherboard compatible with your CPU socket and with the features you need.</p>
+            {% elif category == 'ram' %}
+                <h5>Random Access Memory (RAM)</h5>
+                <p>RAM is your system's short-term memory, storing the data your computer is actively using. More RAM allows for better multitasking and faster performance.</p>
+            {% elif category == 'storage' %}
+                <h5>Storage Drives</h5>
+                <p>Storage drives like SSDs, NVMe drives, and HDDs store all your data permanently. SSDs offer faster speeds while HDDs provide more capacity at a lower cost.</p>
+            {% elif category == 'psu' %}
+                <h5>Power Supply Units (PSUs)</h5>
+                <p>The PSU converts mains AC to low-voltage DC power for the internal components of a computer. Choose a reliable PSU with enough wattage for your system.</p>
+            {% elif category == 'case' %}
+                <h5>PC Cases</h5>
+                <p>PC cases house and protect your computer components while providing airflow for cooling. Choose a case that fits your motherboard and has room for all your components.</p>
+            {% elif category == 'cooling' %}
+                <h5>Cooling Solutions</h5>
+                <p>Cooling components keep your system running at optimal temperatures. Choose from air coolers or liquid cooling solutions based on your performance needs.</p>
+            {% elif category == 'peripherals' %}
+                <h5>Peripherals</h5>
+                <p>Peripherals include keyboards, mice, headsets, and other external devices that enhance your computing experience.</p>
+            {% elif category == 'monitor' %}
+                <h5>Monitors</h5>
+                <p>Monitors display the visual output from your computer. Choose based on resolution, refresh rate, panel type, and size based on your usage needs.</p>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Filters -->
+    <div class="card mb-4">
+        <div class="card-body">
+            {% if category.startswith('peripherals_') %}
+            <form method="GET" action="{{ url_for('components_peripherals', subcategory=category) }}" class="row g-3">
+            {% else %}
+            <form method="GET" action="{{ url_for('component_category', category=category) }}" class="row g-3">
+            {% endif %}
+                <div class="col-md-3">
+                    <label class="form-label">Sort By</label>
+                    <select name="sort" class="form-select">
+                        <option value="price_asc" {% if request.args.get('sort') == 'price_asc' %}selected{% endif %}>Price: Low to High</option>
+                        <option value="price_desc" {% if request.args.get('sort') == 'price_desc' %}selected{% endif %}>Price: High to Low</option>
+                        <option value="newest" {% if request.args.get('sort') == 'newest' %}selected{% endif %}>Newest First</option>
+                        <option value="name_asc" {% if request.args.get('sort') == 'name_asc' %}selected{% endif %}>Name: A to Z</option>
+                    </select>
+                </div>
+                
+                <div class="col-md-7">
+                    <label class="form-label">Search</label>
+                    <input type="text" name="search" class="form-control" placeholder="Search {{ category_display_name|default(category|capitalize) }}..." value="{{ request.args.get('search', '') }}">
+                </div>
+                
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">Apply Filters</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Products Grid -->
+    {% if products.items %}
+        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4 mb-4">
+            {% for product in products.items %}
+                <div class="col">
+                    <div class="card h-100 product-card">
+                        {% if product.featured %}
+                            <span class="badge bg-primary position-absolute end-0 m-3">Featured</span>
+                        {% endif %}
+                        <img src="{{ get_default_product_image(product) }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: contain;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text text-muted small">{{ product.description|truncate(100) }}</p>
+                            <p class="card-text fs-5 fw-bold text-primary">₹{{ "%.2f"|format(product.price) }}</p>
+                            {% if product.stock <= 0 %}
+                                <p class="text-danger"><i class="fas fa-exclamation-circle"></i> Out of Stock</p>
+                            {% elif product.stock < 10 %}
+                                <p class="text-warning"><i class="fas fa-exclamation-triangle"></i> Low Stock: {{ product.stock }} left</p>
+                            {% else %}
+                                <p class="text-success"><i class="fas fa-check-circle"></i> In Stock</p>
+                            {% endif %}
+                        </div>
+                        <div class="card-footer bg-transparent border-top-0">
+                            <div class="d-flex gap-2 mb-2">
+                                <a href="{{ url_for('product_detail', product_id=product.id) }}" class="btn btn-outline-primary flex-grow-1">View Details</a>
+                                
+                                <!-- Add to Wishlist Button -->
+                                <form action="{{ url_for('add_to_wishlist') }}" method="POST" class="d-inline">
+                                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                                    <button type="submit" class="btn btn-outline-secondary" title="Add to Wishlist" {% if not current_user.is_authenticated %}onclick="event.preventDefault(); alert('Please login to add items to your wishlist');"{% endif %}>
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                </form>
+                            </div>
+                            
+                            <div class="d-flex gap-2">
+                                <!-- Add to Cart Button -->
+                                <form action="{{ url_for('add_to_cart') }}" method="POST" class="d-inline flex-grow-1">
+                                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                                    <input type="hidden" name="quantity" value="1">
+                                    <button type="submit" class="btn btn-primary w-100" {% if product.stock <= 0 %}disabled{% endif %}>
+                                        <i class="fas fa-cart-plus me-1"></i> Add to Cart
+                                    </button>
+                                </form>
+                                
+                                <!-- Buy Now Button -->
+                                <form action="{{ url_for('add_to_cart') }}" method="POST" class="d-inline">
+                                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                                    <input type="hidden" name="quantity" value="1">
+                                    <input type="hidden" name="buy_now" value="true">
+                                    <button type="submit" class="btn btn-success" title="Buy Now" {% if product.stock <= 0 %}disabled{% endif %}>
+                                        <i class="fas fa-bolt"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Pagination -->
+        <nav aria-label="Products pagination">
+            <ul class="pagination justify-content-center">
+                {% if products.has_prev %}
+                <li class="page-item">
+                    {% if category.startswith('peripherals_') %}
+                    <a class="page-link" href="{{ url_for('components_peripherals', subcategory=category, page=products.prev_num, sort=request.args.get('sort', ''), search=request.args.get('search', '')) }}">Previous</a>
+                    {% else %}
+                    <a class="page-link" href="{{ url_for('component_category', category=category, page=products.prev_num, sort=request.args.get('sort', ''), search=request.args.get('search', '')) }}">Previous</a>
+                    {% endif %}
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Previous</a>
+                </li>
+                {% endif %}
+                
+                {% for page_num in products.iter_pages(left_edge=1, right_edge=1, left_current=2, right_current=2) %}
+                    {% if page_num %}
+                        {% if page_num == products.page %}
+                        <li class="page-item active">
+                            <a class="page-link" href="#">{{ page_num }}</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item">
+                            {% if category.startswith('peripherals_') %}
+                            <a class="page-link" href="{{ url_for('components_peripherals', subcategory=category, page=page_num, sort=request.args.get('sort', ''), search=request.args.get('search', '')) }}">{{ page_num }}</a>
+                            {% else %}
+                            <a class="page-link" href="{{ url_for('component_category', category=category, page=page_num, sort=request.args.get('sort', ''), search=request.args.get('search', '')) }}">{{ page_num }}</a>
+                            {% endif %}
+                        </li>
+                        {% endif %}
+                    {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#">...</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if products.has_next %}
+                <li class="page-item">
+                    {% if category.startswith('peripherals_') %}
+                    <a class="page-link" href="{{ url_for('components_peripherals', subcategory=category, page=products.next_num, sort=request.args.get('sort', ''), search=request.args.get('search', '')) }}">Next</a>
+                    {% else %}
+                    <a class="page-link" href="{{ url_for('component_category', category=category, page=products.next_num, sort=request.args.get('sort', ''), search=request.args.get('search', '')) }}">Next</a>
+                    {% endif %}
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% else %}
+        <div class="text-center py-5">
+            <div class="display-1 text-muted mb-3">
+                <i class="fas fa-search"></i>
+            </div>
+            <h3>No Products Found</h3>
+            <p class="text-muted">We couldn't find any {{ category_display_name|default(category|capitalize) }} products matching your criteria.</p>
+            {% if category.startswith('peripherals_') %}
+            <a href="{{ url_for('components_peripherals', subcategory=category) }}" class="btn btn-outline-primary">Clear Filters</a>
+            {% else %}
+            <a href="{{ url_for('component_category', category=category) }}" class="btn btn-outline-primary">Clear Filters</a>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

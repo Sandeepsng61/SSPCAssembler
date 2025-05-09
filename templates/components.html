@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}Components - SS PC Assembler{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="mb-4">PC Components</h1>
+    <p class="lead mb-5">Browse our wide range of high-quality computer components for your custom PC build.</p>
+    
+    <div class="row g-4">
+        {% for category in categories %}
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center py-5">
+                    <div class="mb-3 text-primary" style="height: 80px; display: flex; align-items: center; justify-content: center;">
+                        <img src="{{ url_for('static', filename='images/categories/' + category.id + '.svg') }}" alt="{{ category.name }}" style="max-height: 80px; max-width: 100%;">
+                    </div>
+                    <h3 class="card-title h5">{{ category.name }}</h3>
+                    <p class="card-text text-muted small">
+                        {% if category.id == 'cpu' %}
+                            Processors from AMD and Intel
+                        {% elif category.id == 'gpu' %}
+                            Graphics cards for gaming and productivity
+                        {% elif category.id == 'motherboard' %}
+                            Motherboards for various socket types
+                        {% elif category.id == 'ram' %}
+                            Memory modules with different speeds
+                        {% elif category.id == 'storage' %}
+                            SSDs, HDDs, and NVMe drives
+                        {% elif category.id == 'psu' %}
+                            Reliable power supplies for your system
+                        {% elif category.id == 'case' %}
+                            PC cases with various form factors
+                        {% elif category.id == 'cooling' %}
+                            Air and liquid cooling solutions
+                        {% elif category.id == 'peripherals' %}
+                            Keyboards, mice, and other accessories
+                        {% elif category.id == 'monitor' %}
+                            Displays for gaming and productivity
+                        {% elif category.id == 'gaming_console' %}
+                            Game consoles and accessories
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="card-footer bg-transparent border-top-0 text-center">
+                    <a href="{{ url_for('component_category', category=category.id) }}" class="btn btn-outline-primary stretched-link">Browse {{ category.name }}</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card bg-primary text-white">
+                <div class="card-body py-4">
+                    <div class="row align-items-center">
+                        <div class="col-lg-8">
+                            <h2 class="mb-3">Ready to Build Your PC?</h2>
+                            <p class="lead mb-4">Use our PC Builder tool to create your perfect system with real-time compatibility checking.</p>
+                            <div class="mb-2">✓ Compatibility verification</div>
+                            <div class="mb-2">✓ Power consumption calculator</div>
+                            <div class="mb-2">✓ Add full builds to cart</div>
+                        </div>
+                        <div class="col-lg-4 text-center text-lg-end mt-4 mt-lg-0">
+                            <a href="{{ url_for('pc_builder') }}" class="btn btn-light btn-lg">
+                                <i class="fas fa-tools me-2"></i>Start Building
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

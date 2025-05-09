@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+
+{% block title %}Live Chat | SS PC Assembler{% endblock %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Live Chat Support</h5>
+                </div>
+                <div class="card-body">
+                    <div class="chat-container mb-3" id="chat-messages" style="height: 400px; overflow-y: auto; border: 1px solid #dee2e6; border-radius: 0.25rem; padding: 15px; background-color: #f8f9fa;">
+                        <div class="chat-message support">
+                            <div class="message-content">
+                                <p>Hello! Welcome to SS PC Assembler support. How can I help you today?</p>
+                                <small class="text-muted">Support Agent, just now</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <form id="chat-form">
+                        <div class="input-group">
+                            <input type="text" id="chat-input" class="form-control" placeholder="Type your message here..." required>
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-paper-plane me-1"></i> Send
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer bg-light">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">Our support team typically responds within 5 minutes</small>
+                        <div>
+                            <span class="badge bg-success">Online</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mt-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Contact Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-phone-alt me-2"></i>Phone Support</h6>
+                            <p>+91 9876543210</p>
+                            <p class="text-muted small">Available Monday-Saturday, 9 AM - 6 PM IST</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-envelope me-2"></i>Email Support</h6>
+                            <p>support@pcassembler.com</p>
+                            <p class="text-muted small">We typically respond within 24 hours</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.chat-message {
+    margin-bottom: 15px;
+    display: flex;
+}
+
+.chat-message.user {
+    justify-content: flex-end;
+}
+
+.chat-message.support .message-content {
+    background-color: #e9ecef;
+    border-radius: 15px 15px 15px 0;
+    padding: 10px 15px;
+    max-width: 80%;
+}
+
+.chat-message.user .message-content {
+    background-color: #007bff;
+    color: white;
+    border-radius: 15px 15px 0 15px;
+    padding: 10px 15px;
+    max-width: 80%;
+}
+
+.chat-message .message-content p {
+    margin-bottom: 0.25rem;
+}
+
+.chat-message .message-content small {
+    font-size: 0.75rem;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const chatForm = document.getElementById('chat-form');
+    const chatInput = document.getElementById('chat-input');
+    const chatMessages = document.getElementById('chat-messages');
+    
+    // Dummy responses for simulation
+    const botResponses = [
+        "Thanks for your message. How else can I assist you with PC components or building?",
+        "I understand your query. Let me provide some information about our products.",
+        "We have various components in stock. Can you be more specific about what you're looking for?",
+        "Our technicians are experts in PC building. Would you like to schedule a consultation?",
+        "We offer free assembly for purchases over ₹50,000. Would you like to know more about this service?",
+        "Our warranty covers all components for at least 1 year, with some extending to 3-5 years.",
+        "We ship all across India, typically within 3-5 business days."
+    ];
+    
+    chatForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const message = chatInput.value.trim();
+        if (!message) return;
+        
+        // Add user message
+        const userMessageHTML = `
+            <div class="chat-message user">
+                <div class="message-content">
+                    <p>${message}</p>
+                    <small class="text-muted">You, just now</small>
+                </div>
+            </div>
+        `;
+        chatMessages.innerHTML += userMessageHTML;
+        
+        // Clear input
+        chatInput.value = '';
+        
+        // Scroll to bottom
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        
+        // Simulate typing indicator
+        const typingHTML = `
+            <div class="chat-message support" id="typing-indicator">
+                <div class="message-content">
+                    <p><i>Support agent is typing...</i></p>
+                </div>
+            </div>
+        `;
+        chatMessages.innerHTML += typingHTML;
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        
+        // Simulate response after delay
+        setTimeout(function() {
+            // Remove typing indicator
+            const typingIndicator = document.getElementById('typing-indicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+            
+            // Choose random response
+            const randomResponse = botResponses[Math.floor(Math.random() * botResponses.length)];
+            
+            // Add bot response
+            const botMessageHTML = `
+                <div class="chat-message support">
+                    <div class="message-content">
+                        <p>${randomResponse}</p>
+                        <small class="text-muted">Support Agent, just now</small>
+                    </div>
+                </div>
+            `;
+            chatMessages.innerHTML += botMessageHTML;
+            
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 1500);
+    });
+});
+</script>
+{% endblock %}

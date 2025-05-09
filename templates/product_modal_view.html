@@ -1,0 +1,56 @@
+<div class="product-modal-content">
+    <div class="row">
+        <div class="col-md-5">
+            <img src="{{ product.image_url }}" alt="{{ product.name }}" class="img-fluid rounded mb-3">
+        </div>
+        <div class="col-md-7">
+            <h4>{{ product.name }}</h4>
+            <p class="text-muted small">Category: {{ product.category|replace('_', ' ')|title }}</p>
+
+            <div class="d-flex align-items-center mb-3">
+                <span class="fs-4 fw-bold text-primary">₹{{ product.price|round(2, 'common') }}</span>
+                <span class="badge {{ 'bg-success' if product.stock > 0 else 'bg-danger' }} ms-3">
+                    {{ 'In Stock' if product.stock > 0 else 'Out of Stock' }}
+                </span>
+            </div>
+
+            <p>{{ product.description|truncate(250) }}</p>
+
+            {% if product.specs %}
+            <div class="specs-section mb-3">
+                <h5>Specifications</h5>
+                <ul class="list-group list-group-flush">
+                    {% for key, value in product.specs.items() %}
+                    <li class="list-group-item bg-transparent">
+                        <strong>{{ key|replace('_', ' ')|title }}:</strong> {{ value }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <div class="d-flex gap-2 mt-4">
+                <form action="{{ url_for('add_to_cart') }}" method="POST">
+                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                    <input type="hidden" name="quantity" value="1">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-cart-plus me-2"></i>Add to Cart
+                    </button>
+                </form>
+
+                {% if current_user.is_authenticated %}
+                <form action="{{ url_for('add_to_wishlist') }}" method="POST">
+                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                    <button type="submit" class="btn btn-outline-danger">
+                        <i class="fas fa-heart me-2"></i>Add to Wishlist
+                    </button>
+                </form>
+                {% endif %}
+
+                <a href="{{ url_for('product_detail', product_id=product.id) }}" class="btn btn-outline-secondary">
+                    <i class="fas fa-info-circle me-2"></i>Details
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

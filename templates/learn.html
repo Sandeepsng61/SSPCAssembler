@@ -1,0 +1,429 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% if topic %}
+{{ topics[topic]['title'] }} - Learn - PC Builder
+{% else %}
+PC Building Guides - Learn - PC Builder
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for('learn') }}">Learn</a></li>
+            {% if topic %}
+            <li class="breadcrumb-item active" aria-current="page">{{ topics[topic]['title'] }}</li>
+            {% endif %}
+        </ol>
+    </nav>
+
+    {% if not topic %}
+    <!-- Main Learn page - Topics overview -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h1 class="display-4 mb-4">PC Building Guides</h1>
+            <p class="lead">
+                Learn everything you need to know about building your own PC. From choosing the right components to troubleshooting common issues, our guides will help you build the perfect PC for your needs.
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        {% for topic_id, topic_data in topics.items() %}
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ topic_data.title }}</h5>
+                    <p class="card-text">{{ topic_data.description }}</p>
+                    <a href="{{ url_for('learn', topic=topic_id) }}" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    {% elif topic == 'choosing_components' %}
+    <!-- Choosing Components Topic -->
+    <div class="row">
+        <div class="col-lg-8">
+            <h1 class="mb-4">{{ topics[topic]['title'] }}</h1>
+            
+            <div class="mb-5">
+                <h2 class="h3 mb-3">Understanding Your Needs</h2>
+                <p>Before selecting components, consider what you'll be using your PC for:</p>
+                <ul>
+                    <li><strong>Gaming:</strong> Prioritize GPU, adequate CPU, and sufficient RAM (16GB+)</li>
+                    <li><strong>Content Creation:</strong> Focus on multi-core CPUs, high RAM (32GB+), and SSD storage</li>
+                    <li><strong>Office/Productivity:</strong> A balanced system with emphasis on reliability</li>
+                    <li><strong>Budget Considerations:</strong> Determine your maximum budget and allocate funds wisely</li>
+                </ul>
+            </div>
+            
+            <div class="mb-5">
+                <h2 class="h3 mb-3">CPU Selection</h2>
+                <p>The Central Processing Unit (CPU) is the brain of your computer:</p>
+                <ul>
+                    <li><strong>Intel vs AMD:</strong> Both offer competitive options at various price points</li>
+                    <li><strong>Core Count:</strong> 6-8 cores is ideal for gaming, 8+ for content creation</li>
+                    <li><strong>Clock Speed:</strong> Higher is better for gaming and single-threaded applications</li>
+                    <li><strong>Socket Compatibility:</strong> Ensure your CPU matches your motherboard socket</li>
+                </ul>
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i> Remember that the CPU choice will determine which motherboard you can use, so choose carefully!
+                </div>
+            </div>
+            
+            <div class="mb-5">
+                <h2 class="h3 mb-3">GPU Selection</h2>
+                <p>The Graphics Processing Unit (GPU) handles visual rendering:</p>
+                <ul>
+                    <li><strong>NVIDIA vs AMD:</strong> NVIDIA offers better ray tracing, AMD often has better value</li>
+                    <li><strong>VRAM:</strong> 8GB minimum for 1080p gaming, 10GB+ for 1440p and 4K</li>
+                    <li><strong>Performance Tiers:</strong> Entry-level, Mid-range, High-end, and Enthusiast</li>
+                    <li><strong>Power Requirements:</strong> Higher performance GPUs need more robust power supplies</li>
+                </ul>
+            </div>
+            
+            <div class="mb-5">
+                <h2 class="h3 mb-3">Other Key Components</h2>
+                <ul>
+                    <li><strong>Motherboard:</strong> The foundation of your build, ensures compatibility</li>
+                    <li><strong>RAM:</strong> 16GB DDR4 is standard, 32GB+ for content creation</li>
+                    <li><strong>Storage:</strong> NVMe SSD for OS/programs, additional SSDs or HDDs for mass storage</li>
+                    <li><strong>Power Supply:</strong> Choose reliable brands with sufficient wattage (650W+ recommended)</li>
+                    <li><strong>Case:</strong> Consider airflow, size compatibility, and aesthetics</li>
+                    <li><strong>Cooling:</strong> Air cooling is sufficient for most builds, water cooling for high-performance</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card mb-4 sticky-top" style="top: 20px; z-index: 999;">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Topics</h5>
+                </div>
+                <div class="list-group list-group-flush">
+                    {% for topic_id, topic_data in topics.items() %}
+                    <a href="{{ url_for('learn', topic=topic_id) }}" class="list-group-item list-group-item-action {{ 'active' if topic == topic_id else '' }}">
+                        {{ topic_data.title }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Ready to Build?</h5>
+                </div>
+                <div class="card-body">
+                    <p>Start assembling your own custom PC with our PC Builder tool!</p>
+                    <a href="{{ url_for('pc_builder') }}" class="btn btn-success w-100">
+                        <i class="fas fa-wrench me-2"></i> PC Builder
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% elif topic == 'building_process' %}
+    <!-- Building Process Topic -->
+    <div class="row">
+        <div class="col-lg-8">
+            <h1 class="mb-4">{{ topics[topic]['title'] }}</h1>
+            
+            <div class="mb-5">
+                <h2 class="h3 mb-3">Preparation</h2>
+                <p>Before you start building, get everything ready:</p>
+                <ul>
+                    <li>Ensure you have all necessary components and tools</li>
+                    <li>Find a clean, well-lit, and static-free workspace</li>
+                    <li>Organize your parts and keep small components (screws) in containers</li>
+                    <li>Have a secondary device ready for tutorials or troubleshooting</li>
+                </ul>
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle me-2"></i> Always ground yourself before handling components to prevent static damage!
+                </div>
+            </div>
+            
+            <div class="mb-5">
+                <h2 class="h3 mb-3">Step 1: Installing the CPU</h2>
+                <p>The CPU installation process varies slightly between Intel and AMD:</p>
+                <ol>
+                    <li>Open the CPU socket lever on the motherboard</li>
+                    <li>Align the CPU correctly (look for the golden triangle on AMD or notches on Intel)</li>
+                    <li>Gently place the CPU - never force it!</li>
+                    <li>Close the socket lever to secure the CPU</li>
+                </ol>
+            </div>
+            
+            <div class="mb-5">
+                <h2 class="h3 mb-3">Step 2: CPU Cooler Installation</h2>
+                <p>Installing your CPU cooler correctly is crucial for thermal performance:</p>
+                <ol>
+                    <li>Apply a pea-sized amount of thermal paste to the CPU (if not pre-applied)</li>
+                    <li>Align the cooler mounting brackets with the motherboard socket</li>
+                    <li>Secure the cooler evenly, tightening in a cross-pattern</li>
+                    <li>Connect the CPU fan to the CPU_FAN header on the motherboard</li>
+                </ol>
+            </div>
+            
+            <div class="mb-5">
+                <h2 class="h3 mb-3">Step 3: Installing RAM</h2>
+                <p>RAM installation is straightforward but requires attention:</p>
+                <ol>
+                    <li>Open the RAM slot clips on both ends</li>
+                    <li>Align the RAM with the slot (notch should match)</li>
+                    <li>Press down firmly until you hear a click</li>
+                    <li>Verify that both clips have secured the RAM module</li>
+                </ol>
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i> For dual-channel memory, install RAM in the correct slots (usually 2nd and 4th from CPU)
+                </div>
+            </div>
+            
+            <div class="mb-5">
+                <h2 class="h3 mb-3">Step 4: Motherboard Installation</h2>
+                <p>Installing the motherboard in the case requires care:</p>
+                <ol>
+                    <li>Install the I/O shield in the case (if not integrated with the motherboard)</li>
+                    <li>Install standoffs in the correct positions in the case</li>
+                    <li>Carefully lower the motherboard onto the standoffs</li>
+                    <li>Secure the motherboard with screws, but don't overtighten</li>
+                </ol>
+            </div>
+            
+            <div class="mb-5">
+                <h2 class="h3 mb-3">Remaining Steps</h2>
+                <ol start="5">
+                    <li><strong>PSU Installation:</strong> Mount and connect power supply</li>
+                    <li><strong>Storage Installation:</strong> Mount SSDs and HDDs</li>
+                    <li><strong>GPU Installation:</strong> Install into PCIe slot and secure</li>
+                    <li><strong>Cable Management:</strong> Connect and organize all cables</li>
+                    <li><strong>First Boot:</strong> Test system before closing the case</li>
+                    <li><strong>OS Installation:</strong> Install operating system and drivers</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card mb-4 sticky-top" style="top: 20px; z-index: 999;">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Topics</h5>
+                </div>
+                <div class="list-group list-group-flush">
+                    {% for topic_id, topic_data in topics.items() %}
+                    <a href="{{ url_for('learn', topic=topic_id) }}" class="list-group-item list-group-item-action {{ 'active' if topic == topic_id else '' }}">
+                        {{ topic_data.title }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Ready to Build?</h5>
+                </div>
+                <div class="card-body">
+                    <p>Start assembling your own custom PC with our PC Builder tool!</p>
+                    <a href="{{ url_for('pc_builder') }}" class="btn btn-success w-100">
+                        <i class="fas fa-wrench me-2"></i> PC Builder
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% elif topic == 'troubleshooting' %}
+    <!-- Troubleshooting Topic -->
+    <div class="row">
+        <div class="col-lg-8">
+            <h1 class="mb-4">{{ topics[topic]['title'] }}</h1>
+            
+            <div class="mb-5">
+                <h2 class="h3 mb-3">PC Won't Power On</h2>
+                <p>If your PC doesn't turn on at all, check these common issues:</p>
+                <ul>
+                    <li><strong>Power Supply Switch:</strong> Ensure the PSU switch is in the ON position</li>
+                    <li><strong>Power Connections:</strong> Verify all power cables are securely connected</li>
+                    <li><strong>Front Panel Connectors:</strong> Check that case power button is connected correctly</li>
+                    <li><strong>Wall Outlet:</strong> Test the power outlet with another device</li>
+                    <li><strong>PSU Test:</strong> Perform the paperclip test to verify PSU functionality</li>
+                </ul>
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i> The most common issue is a loose or incorrectly connected power cable!
+                </div>
+            </div>
+            
+            <div class="mb-5">
+                <h2 class="h3 mb-3">Powers On, No Display</h2>
+                <p>If your PC powers on (fans spinning) but shows no display:</p>
+                <ul>
+                    <li><strong>Monitor Connection:</strong> Ensure monitor is on and connected to correct port</li>
+                    <li><strong>GPU Seating:</strong> Reseat your graphics card in the PCIe slot</li>
+                    <li><strong>RAM Seating:</strong> Reseat RAM modules or try with a single stick</li>
+                    <li><strong>Display Output:</strong> Try different ports (HDMI, DisplayPort, etc.)</li>
+                    <li><strong>BIOS Reset:</strong> Clear CMOS if nothing else works</li>
+                </ul>
+            </div>
+            
+            <div class="mb-5">
+                <h2 class="h3 mb-3">System Crashes or Freezes</h2>
+                <p>For systems that boot but crash or freeze:</p>
+                <ul>
+                    <li><strong>Temperature Issues:</strong> Check CPU and GPU temperatures</li>
+                    <li><strong>RAM Problems:</strong> Run memory diagnostic tests</li>
+                    <li><strong>Power Issues:</strong> Ensure PSU has adequate wattage</li>
+                    <li><strong>Driver Conflicts:</strong> Update or reinstall drivers</li>
+                    <li><strong>BIOS Settings:</strong> Reset BIOS to default settings</li>
+                </ul>
+            </div>
+            
+            <div class="mb-5">
+                <h2 class="h3 mb-3">Boot or Storage Issues</h2>
+                <p>Problems with booting or accessing storage:</p>
+                <ul>
+                    <li><strong>Boot Device Priority:</strong> Check BIOS boot order settings</li>
+                    <li><strong>Drive Connections:</strong> Verify SATA/NVMe connections</li>
+                    <li><strong>Corrupted OS:</strong> Use recovery tools to repair Windows</li>
+                    <li><strong>Drive Health:</strong> Check drive health with diagnostic tools</li>
+                </ul>
+            </div>
+            
+            <div class="mb-5">
+                <h2 class="h3 mb-3">Performance Issues</h2>
+                <p>If your PC is running slower than expected:</p>
+                <ul>
+                    <li><strong>Thermal Throttling:</strong> Check temperatures under load</li>
+                    <li><strong>Background Processes:</strong> Check for resource-heavy background tasks</li>
+                    <li><strong>Storage Performance:</strong> Ensure SSDs have adequate free space</li>
+                    <li><strong>Driver Updates:</strong> Update all device drivers to latest versions</li>
+                    <li><strong>BIOS Updates:</strong> Check for motherboard BIOS updates</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card mb-4 sticky-top" style="top: 20px; z-index: 999;">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Topics</h5>
+                </div>
+                <div class="list-group list-group-flush">
+                    {% for topic_id, topic_data in topics.items() %}
+                    <a href="{{ url_for('learn', topic=topic_id) }}" class="list-group-item list-group-item-action {{ 'active' if topic == topic_id else '' }}">
+                        {{ topic_data.title }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Ready to Build?</h5>
+                </div>
+                <div class="card-body">
+                    <p>Start assembling your own custom PC with our PC Builder tool!</p>
+                    <a href="{{ url_for('pc_builder') }}" class="btn btn-success w-100">
+                        <i class="fas fa-wrench me-2"></i> PC Builder
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% elif topic == 'tips_and_tricks' %}
+    <!-- Tips and Tricks Topic -->
+    <div class="row">
+        <div class="col-lg-8">
+            <h1 class="mb-4">{{ topics[topic]['title'] }}</h1>
+            
+            <div class="mb-5">
+                <h2 class="h3 mb-3">Pre-Build Planning</h2>
+                <ul>
+                    <li><strong>Research Thoroughly:</strong> Read reviews and benchmarks before purchasing</li>
+                    <li><strong>PCPartPicker:</strong> Use compatibility checking tools to verify parts</li>
+                    <li><strong>Future-Proofing:</strong> Invest in a quality PSU and motherboard for future upgrades</li>
+                    <li><strong>Case Dimensions:</strong> Check GPU length, CPU cooler height, and radiator clearance</li>
+                </ul>
+            </div>
+            
+            <div class="mb-5">
+                <h2 class="h3 mb-3">Building Tips</h2>
+                <ul>
+                    <li><strong>Build Outside the Case First:</strong> Test components before full installation</li>
+                    <li><strong>Cable Management:</strong> Plan cable routing before securing components</li>
+                    <li><strong>Manual Reading:</strong> Actually read the motherboard manual</li>
+                    <li><strong>Static Prevention:</strong> Work on non-carpeted surfaces and touch metal frequently</li>
+                    <li><strong>Organize Screws:</strong> Use separate containers for different screw types</li>
+                </ul>
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i> Take photos during disassembly of your old PC or during the build process as reference points!
+                </div>
+            </div>
+            
+            <div class="mb-5">
+                <h2 class="h3 mb-3">Performance Optimization</h2>
+                <ul>
+                    <li><strong>XMP/DOCP Profiles:</strong> Enable in BIOS to get advertised RAM speeds</li>
+                    <li><strong>Storage Configuration:</strong> Set up proper boot drive priority and partition schemes</li>
+                    <li><strong>Clean Windows Install:</strong> Avoid bloatware with a fresh OS installation</li>
+                    <li><strong>Fan Curves:</strong> Customize fan speeds for optimal noise/cooling balance</li>
+                    <li><strong>GPU Undervolting:</strong> Reduce temperatures while maintaining performance</li>
+                </ul>
+            </div>
+            
+            <div class="mb-5">
+                <h2 class="h3 mb-3">Maintenance Tips</h2>
+                <ul>
+                    <li><strong>Regular Cleaning:</strong> Dust removal every 3-6 months</li>
+                    <li><strong>Driver Updates:</strong> Keep drivers current but avoid day-one updates</li>
+                    <li><strong>Thermal Paste Replacement:</strong> Replace every 2-3 years</li>
+                    <li><strong>Backup Strategy:</strong> Implement regular data backups</li>
+                    <li><strong>Temperature Monitoring:</strong> Use software to track system temperatures</li>
+                </ul>
+            </div>
+            
+            <div class="mb-5">
+                <h2 class="h3 mb-3">Advanced Tricks</h2>
+                <ul>
+                    <li><strong>BIOS Updates:</strong> Keep motherboard BIOS current for best compatibility</li>
+                    <li><strong>Overclocking:</strong> Carefully increase performance with adequate cooling</li>
+                    <li><strong>Custom Boot Logos:</strong> Personalize your BIOS splash screen</li>
+                    <li><strong>RGB Synchronization:</strong> Coordinate lighting across different components</li>
+                    <li><strong>Power Optimizations:</strong> Configure sleep states and hybrid shutdown</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card mb-4 sticky-top" style="top: 20px; z-index: 999;">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Topics</h5>
+                </div>
+                <div class="list-group list-group-flush">
+                    {% for topic_id, topic_data in topics.items() %}
+                    <a href="{{ url_for('learn', topic=topic_id) }}" class="list-group-item list-group-item-action {{ 'active' if topic == topic_id else '' }}">
+                        {{ topic_data.title }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Ready to Build?</h5>
+                </div>
+                <div class="card-body">
+                    <p>Start assembling your own custom PC with our PC Builder tool!</p>
+                    <a href="{{ url_for('pc_builder') }}" class="btn btn-success w-100">
+                        <i class="fas fa-wrench me-2"></i> PC Builder
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -11,7 +11,7 @@ from werkzeug.security import generate_password_hash
 
 def add_products():
     """Add products to the database"""
-    
+
     # CPU Products
     cpu_products = [
         {
@@ -1063,11 +1063,620 @@ def add_products():
                 'cache': '72MB',
                 'integrated_graphics': 'None'
             }
+        },
+        {
+            'name': 'Intel Core i3-12100F',
+            'description': 'Entry-level 12th Gen Intel processor with 4 cores and 8 threads for budget gaming builds.',
+            'price': 8999.99,
+            'stock': 30,
+            'category': 'cpu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2022/03/Intel-Core-i3-12100F-Desktop-Processor-1.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Intel',
+                'model': 'Core i3-12100F',
+                'socket': 'LGA1700',
+                'cores': '4',
+                'threads': '8',
+                'base_clock': '3.3 GHz',
+                'boost_clock': '4.3 GHz',
+                'tdp': '58',
+                'cache': '12MB',
+                'integrated_graphics': 'None'
+            }
+        },
+        {
+            'name': 'Intel Core i3-13100',
+            'description': 'Entry-level 13th Gen Intel processor with 4 cores and 8 threads for budget builds with integrated graphics.',
+            'price': 10999.99,
+            'stock': 25,
+            'category': 'cpu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2023/01/Intel-Core-i3-13100-Desktop-Processor-13th-Gen.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Intel',
+                'model': 'Core i3-13100',
+                'socket': 'LGA1700',
+                'cores': '4',
+                'threads': '8',
+                'base_clock': '3.4 GHz',
+                'boost_clock': '4.5 GHz',
+                'tdp': '60',
+                'cache': '12MB',
+                'integrated_graphics': 'Intel UHD Graphics 730'
+            }
+        },
+        {
+            'name': 'Intel Core i5-12400F',
+            'description': 'Mid-range 12th Gen Intel processor with 6 cores and 12 threads for mainstream gaming PCs.',
+            'price': 14999.99,
+            'stock': 28,
+            'category': 'cpu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2022/01/Intel-Core-i5-12400F-Desktop-Processor-1.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Intel',
+                'model': 'Core i5-12400F',
+                'socket': 'LGA1700',
+                'cores': '6',
+                'threads': '12',
+                'base_clock': '2.5 GHz',
+                'boost_clock': '4.4 GHz',
+                'tdp': '65',
+                'cache': '18MB',
+                'integrated_graphics': 'None'
+            }
+        },
+        {
+            'name': 'Intel Core i5-13400F',
+            'description': 'Mid-range 13th Gen Intel processor with 10 cores (6P+4E) and 16 threads for mainstream gaming.',
+            'price': 17499.99,
+            'stock': 22,
+            'category': 'cpu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2023/01/Intel-Core-i5-13400F-Desktop-Processor-13th-Gen.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Intel',
+                'model': 'Core i5-13400F',
+                'socket': 'LGA1700',
+                'cores': '10 (6P+4E)',
+                'threads': '16',
+                'base_clock': '2.5 GHz',
+                'boost_clock': '4.6 GHz',
+                'tdp': '65',
+                'cache': '20MB',
+                'integrated_graphics': 'None'
+            }
+        },
+        {
+            'name': 'Intel Core i5-13600K',
+            'description': 'High-performance 13th Gen Intel processor with 14 cores (6P+8E) and 20 threads for gaming and content creation.',
+            'price': 29999.99,
+            'stock': 18,
+            'category': 'cpu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2022/10/Intel-Core-i5-13600K-Desktop-Processor-13th-Gen.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Intel',
+                'model': 'Core i5-13600K',
+                'socket': 'LGA1700',
+                'cores': '14 (6P+8E)',
+                'threads': '20',
+                'base_clock': '3.5 GHz',
+                'boost_clock': '5.1 GHz',
+                'tdp': '125',
+                'cache': '24MB',
+                'integrated_graphics': 'Intel UHD Graphics 770'
+            }
+        },
+        {
+            'name': 'Intel Core i5-14400F',
+            'description': 'Mid-range 14th Gen Intel processor with 10 cores (6P+4E) and 16 threads for mainstream gaming.',
+            'price': 19999.99,
+            'stock': 20,
+            'category': 'cpu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2024/01/Intel-Core-i5-14400F-Desktop-Processor-14th-Gen.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Intel',
+                'model': 'Core i5-14400F',
+                'socket': 'LGA1700',
+                'cores': '10 (6P+4E)',
+                'threads': '16',
+                'base_clock': '2.5 GHz',
+                'boost_clock': '4.7 GHz',
+                'tdp': '65',
+                'cache': '24MB',
+                'integrated_graphics': 'None'
+            }
+        },
+        {
+            'name': 'Intel Core i7-14700KF',
+            'description': 'High-performance 14th Gen Intel processor with 20 cores (8P+12E) and 28 threads for enthusiast gaming and content creation.',
+            'price': 42999.99,
+            'stock': 15,
+            'category': 'cpu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2023/10/Intel-Core-i7-14700KF-Desktop-Processor-14th-Gen.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Intel',
+                'model': 'Core i7-14700KF',
+                'socket': 'LGA1700',
+                'cores': '20 (8P+12E)',
+                'threads': '28',
+                'base_clock': '3.4 GHz',
+                'boost_clock': '5.5 GHz',
+                'tdp': '125',
+                'cache': '33MB',
+                'integrated_graphics': 'None'
+            }
+        },
+        {
+            'name': 'Intel Core i9-14900K',
+            'description': 'Flagship 14th Gen Intel processor with 24 cores (8P+16E) and 32 threads, with up to 6.0GHz turbo frequency.',
+            'price': 62999.99,
+            'stock': 10,
+            'category': 'cpu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2023/10/Intel-Core-i9-14900K-Desktop-Processor-14th-Gen.jpg',
+            'featured': True,
+            'specs': {
+                'brand': 'Intel',
+                'model': 'Core i9-14900K',
+                'socket': 'LGA1700',
+                'cores': '24 (8P+16E)',
+                'threads': '32',
+                'base_clock': '3.2 GHz',
+                'boost_clock': '6.0 GHz',
+                'tdp': '125',
+                'cache': '36MB',
+                'integrated_graphics': 'Intel UHD Graphics 770'
+            }
+        },
+        {
+            'name': 'AMD Ryzen 3 4100',
+            'description': 'Entry-level AMD processor with 4 cores and 8 threads for budget builds.',
+            'price': 7999.99,
+            'stock': 35,
+            'category': 'cpu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2022/04/AMD-Ryzen-3-4100-Desktop-Processor.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'AMD',
+                'model': 'Ryzen 3 4100',
+                'socket': 'AM4',
+                'cores': '4',
+                'threads': '8',
+                'base_clock': '3.8 GHz',
+                'boost_clock': '4.0 GHz',
+                'tdp': '65',
+                'cache': '6MB',
+                'integrated_graphics': 'None'
+            }
+        },
+        {
+            'name': 'AMD Ryzen 5 5500',
+            'description': 'Mid-range AMD Zen 3 processor with 6 cores and 12 threads for budget gaming.',
+            'price': 11999.99,
+            'stock': 30,
+            'category': 'cpu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2022/04/AMD-Ryzen-5-5500-Desktop-Processor.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'AMD',
+                'model': 'Ryzen 5 5500',
+                'socket': 'AM4',
+                'cores': '6',
+                'threads': '12',
+                'base_clock': '3.6 GHz',
+                'boost_clock': '4.2 GHz',
+                'tdp': '65',
+                'cache': '19MB',
+                'integrated_graphics': 'None'
+            }
+        },
+        {
+            'name': 'AMD Ryzen 5 5600',
+            'description': 'Mid-range AMD Zen 3 processor with 6 cores and 12 threads for gaming and productivity.',
+            'price': 13999.99,
+            'stock': 28,
+            'category': 'cpu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2022/04/AMD-Ryzen-5-5600-Desktop-Processor.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'AMD',
+                'model': 'Ryzen 5 5600',
+                'socket': 'AM4',
+                'cores': '6',
+                'threads': '12',
+                'base_clock': '3.5 GHz',
+                'boost_clock': '4.4 GHz',
+                'tdp': '65',
+                'cache': '35MB',
+                'integrated_graphics': 'None'
+            }
+        },
+        {
+            'name': 'AMD Ryzen 5 5600G',
+            'description': 'Mid-range AMD Zen 3 processor with 6 cores, 12 threads and integrated Radeon graphics.',
+            'price': 15499.99,
+            'stock': 25,
+            'category': 'cpu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2021/08/AMD-Ryzen-5-5600G-Desktop-Processor.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'AMD',
+                'model': 'Ryzen 5 5600G',
+                'socket': 'AM4',
+                'cores': '6',
+                'threads': '12',
+                'base_clock': '3.9 GHz',
+                'boost_clock': '4.4 GHz',
+                'tdp': '65',
+                'cache': '19MB',
+                'integrated_graphics': 'AMD Radeon Graphics'
+            }
+        },
+        {
+            'name': 'AMD Ryzen 5 7600',
+            'description': 'Mid-range AMD Zen 4 processor with 6 cores and 12 threads for high-performance gaming.',
+            'price': 22999.99,
+            'stock': 22,
+            'category': 'cpu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2023/01/AMD-Ryzen-5-7600-Desktop-Processor.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'AMD',
+                'model': 'Ryzen 5 7600',
+                'socket': 'AM5',
+                'cores': '6',
+                'threads': '12',
+                'base_clock': '3.8 GHz',
+                'boost_clock': '5.1 GHz',
+                'tdp': '65',
+                'cache': '38MB',
+                'integrated_graphics': 'AMD Radeon Graphics'
+            }
+        },
+        {
+            'name': 'AMD Ryzen 7 5800X',
+            'description': 'High-performance AMD Zen 3 processor with 8 cores and 16 threads for enthusiast gaming and content creation.',
+            'price': 28999.99,
+            'stock': 18,
+            'category': 'cpu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2020/11/AMD-Ryzen-7-5800X-Desktop-Processor.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'AMD',
+                'model': 'Ryzen 7 5800X',
+                'socket': 'AM4',
+                'cores': '8',
+                'threads': '16',
+                'base_clock': '3.8 GHz',
+                'boost_clock': '4.7 GHz',
+                'tdp': '105',
+                'cache': '36MB',
+                'integrated_graphics': 'None'
+            }
+        },
+        {
+            'name': 'AMD Ryzen 7 7700',
+            'description': 'High-performance AMD Zen 4 processor with 8 cores and 16 threads for enthusiast gaming.',
+            'price': 32999.99,
+            'stock': 16,
+            'category': 'cpu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2023/01/AMD-Ryzen-7-7700-Desktop-Processor.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'AMD',
+                'model': 'Ryzen 7 7700',
+                'socket': 'AM5',
+                'cores': '8',
+                'threads': '16',
+                'base_clock': '3.8 GHz',
+                'boost_clock': '5.3 GHz',
+                'tdp': '65',
+                'cache': '40MB',
+                'integrated_graphics': 'AMD Radeon Graphics'
+            }
+        },
+        {
+            'name': 'AMD Ryzen 9 5900X',
+            'description': 'High-end AMD Zen 3 processor with 12 cores and 24 threads for enthusiast gaming and content creation.',
+            'price': 38999.99,
+            'stock': 12,
+            'category': 'cpu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2020/11/AMD-Ryzen-9-5900X-Desktop-Processor.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'AMD',
+                'model': 'Ryzen 9 5900X',
+                'socket': 'AM4',
+                'cores': '12',
+                'threads': '24',
+                'base_clock': '3.7 GHz',
+                'boost_clock': '4.8 GHz',
+                'tdp': '105',
+                'cache': '70MB',
+                'integrated_graphics': 'None'
+            }
+        },
+        {
+            'name': 'AMD Ryzen 5 8600G',
+            'description': 'Mid-range AMD Zen 4 APU with 6 cores, 12 threads and integrated RDNA 3 graphics.',
+            'price': 24999.99,
+            'stock': 20,
+            'category': 'cpu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2024/01/AMD-Ryzen-5-8600G-Desktop-APU.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'AMD',
+                'model': 'Ryzen 5 8600G',
+                'socket': 'AM5',
+                'cores': '6',
+                'threads': '12',
+                'base_clock': '4.3 GHz',
+                'boost_clock': '5.0 GHz',
+                'tdp': '65',
+                'cache': '22MB',
+                'integrated_graphics': 'AMD Radeon 760M'
+            }
+        },
+        {
+            'name': 'AMD Ryzen 7 8700G',
+            'description': 'High-performance AMD Zen 4 APU with 8 cores, 16 threads and powerful integrated RDNA 3 graphics.',
+            'price': 32999.99,
+            'stock': 15,
+            'category': 'cpu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2024/01/AMD-Ryzen-7-8700G-Desktop-APU.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'AMD',
+                'model': 'Ryzen 7 8700G',
+                'socket': 'AM5',
+                'cores': '8',
+                'threads': '16',
+                'base_clock': '4.2 GHz',
+                'boost_clock': '5.1 GHz',
+                'tdp': '65',
+                'cache': '24MB',
+                'integrated_graphics': 'AMD Radeon 780M'
+            }
+        },
+        {
+            'name': 'AMD Ryzen 3 4100',
+            'description': 'Entry-level 4-core 8-thread AMD Ryzen 3 processor for budget builds.',
+            'price': 9999.99,
+            'stock': 30,
+            'category': 'cpu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2022/06/AMD-Ryzen-3-4100-Desktop-Processor.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'AMD',
+                'model': 'Ryzen 3 4100',
+                'socket': 'AM4',
+                'cores': '4',
+                'threads': '8',
+                'base_clock': '3.8 GHz',
+                'boost_clock': '4.0 GHz',
+                'tdp': '65',
+                'cache': '6MB',
+                'integrated_graphics': 'No'
+            }
+        },
+        {
+            'name': 'AMD Ryzen 5 5500',
+            'description': 'Mid-range 6-core 12-thread Ryzen 5 processor for balanced performance.',
+            'price': 12499.99,
+            'stock': 28,
+            'category': 'cpu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2022/06/AMD-Ryzen-5-5500-Desktop-Processor.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'AMD',
+                'model': 'Ryzen 5 5500',
+                'socket': 'AM4',
+                'cores': '6',
+                'threads': '12',
+                'base_clock': '3.6 GHz',
+                'boost_clock': '4.2 GHz',
+                'tdp': '65',
+                'cache': '19MB',
+                'integrated_graphics': 'No'
+            }
+        },
+        {
+            'name': 'AMD Ryzen 5 5600G',
+            'description': 'Versatile 6-core 12-thread APU with powerful integrated Radeon graphics for budget gaming builds.',
+            'price': 16999.99,
+            'stock': 25,
+            'category': 'cpu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2021/09/AMD-Ryzen-5-5600G-Desktop-Processor.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'AMD',
+                'model': 'Ryzen 5 5600G',
+                'socket': 'AM4',
+                'cores': '6',
+                'threads': '12',
+                'base_clock': '3.9 GHz',
+                'boost_clock': '4.4 GHz',
+                'tdp': '65',
+                'cache': '19MB',
+                'integrated_graphics': 'Radeon Graphics (7 CUs)'
+            }
         }
     ]
-    
+
     # GPU Products
     gpu_products = [
+        {
+            'name': 'NVIDIA GT 1030',
+            'description': 'Entry-level graphics card for basic computing and casual gaming.',
+            'price': 7999.99,
+            'stock': 50,
+            'category': 'gpu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2020/08/Gigabyte-GeForce-GT-1030-OC-2GB-Graphics-Card.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'NVIDIA',
+                'model': 'GeForce GT 1030',
+                'memory': '2GB GDDR5',
+                'memory_interface': '64-bit',
+                'clock_speed': '1.27 GHz',
+                'cuda_cores': '384',
+                'tdp': '30',
+                'length': '150',
+                'recommended_psu': '300W',
+                'power_connectors': 'None'
+            }
+        },
+        {
+            'name': 'NVIDIA GTX 1650',
+            'description': 'Budget graphics card for 1080p gaming with 4GB GDDR6 memory.',
+            'price': 14999.99,
+            'stock': 45,
+            'category': 'gpu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2020/07/ZOTAC-GAMING-GeForce-GTX-1650-AMP-4GB-Graphics-Card.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'NVIDIA',
+                'model': 'GeForce GTX 1650',
+                'memory': '4GB GDDR6',
+                'memory_interface': '128-bit',
+                'clock_speed': '1.59 GHz',
+                'cuda_cores': '896',
+                'tdp': '75',
+                'length': '160',
+                'recommended_psu': '350W',
+                'power_connectors': 'None'
+            }
+        },
+        {
+            'name': 'NVIDIA GTX 1660 Super',
+            'description': 'Mid-range graphics card for 1080p gaming with 6GB GDDR6 memory.',
+            'price': 19999.99,
+            'stock': 35,
+            'category': 'gpu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2020/07/ZOTAC-GAMING-GeForce-GTX-1660-SUPER-6GB-Graphics-Card.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'NVIDIA',
+                'model': 'GeForce GTX 1660 Super',
+                'memory': '6GB GDDR6',
+                'memory_interface': '192-bit',
+                'clock_speed': '1.53 GHz',
+                'cuda_cores': '1408',
+                'tdp': '125',
+                'length': '173',
+                'recommended_psu': '450W',
+                'power_connectors': '1x 8-pin'
+            }
+        },
+        {
+            'name': 'NVIDIA RTX 2060',
+            'description': 'Mid-range RTX graphics card for 1080p gaming with ray-tracing capabilities.',
+            'price': 26999.99,
+            'stock': 30,
+            'category': 'gpu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2021/08/ZOTAC-GAMING-GeForce-RTX-2060-6GB-Graphics-Card.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'NVIDIA',
+                'model': 'GeForce RTX 2060',
+                'memory': '6GB GDDR6',
+                'memory_interface': '192-bit',
+                'clock_speed': '1.68 GHz',
+                'cuda_cores': '1920',
+                'tdp': '160',
+                'length': '210',
+                'recommended_psu': '500W',
+                'power_connectors': '1x 8-pin'
+            }
+        },
+        {
+            'name': 'NVIDIA RTX 3060',
+            'description': 'Mid-range RTX 30 series card with 12GB GDDR6 memory for 1080p and 1440p gaming.',
+            'price': 32999.99,
+            'stock': 25,
+            'category': 'gpu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2022/01/ASUS-Dual-NVIDIA-GeForce-RTX-3060-OC-Edition-12GB-Graphics-Card.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'NVIDIA',
+                'model': 'GeForce RTX 3060',
+                'memory': '12GB GDDR6',
+                'memory_interface': '192-bit',
+                'clock_speed': '1.78 GHz',
+                'cuda_cores': '3584',
+                'tdp': '170',
+                'length': '242',
+                'recommended_psu': '600W',
+                'power_connectors': '1x 8-pin'
+            }
+        },
+        {
+            'name': 'NVIDIA RTX 3060 Ti',
+            'description': 'Upper mid-range RTX 30 series card for excellent 1440p gaming performance.',
+            'price': 39999.99,
+            'stock': 20,
+            'category': 'gpu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2021/07/ASUS-Dual-NVIDIA-GeForce-RTX-3060-Ti-OC-Edition-8GB-Graphics-Card.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'NVIDIA',
+                'model': 'GeForce RTX 3060 Ti',
+                'memory': '8GB GDDR6',
+                'memory_interface': '256-bit',
+                'clock_speed': '1.67 GHz',
+                'cuda_cores': '4864',
+                'tdp': '200',
+                'length': '242',
+                'recommended_psu': '650W',
+                'power_connectors': '1x 8-pin'
+            }
+        },
+        {
+            'name': 'NVIDIA RTX 3070',
+            'description': 'High-performance RTX 30 series card for 1440p and entry-level 4K gaming.',
+            'price': 49999.99,
+            'stock': 18,
+            'category': 'gpu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2021/08/ASUS-TUF-Gaming-NVIDIA-GeForce-RTX-3070-OC-Edition-8GB-Graphics-Card.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'NVIDIA',
+                'model': 'GeForce RTX 3070',
+                'memory': '8GB GDDR6',
+                'memory_interface': '256-bit',
+                'clock_speed': '1.73 GHz',
+                'cuda_cores': '5888',
+                'tdp': '220',
+                'length': '299',
+                'recommended_psu': '700W',
+                'power_connectors': '2x 8-pin'
+            }
+        },
+        {
+            'name': 'NVIDIA RTX 3080',
+            'description': 'High-end RTX 30 series card for 4K gaming with excellent ray-tracing performance.',
+            'price': 69999.99,
+            'stock': 15,
+            'category': 'gpu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2021/10/ASUS-TUF-Gaming-NVIDIA-GeForce-RTX-3080-OC-Edition-10GB-Graphics-Card.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'NVIDIA',
+                'model': 'GeForce RTX 3080',
+                'memory': '10GB GDDR6X',
+                'memory_interface': '320-bit',
+                'clock_speed': '1.71 GHz',
+                'cuda_cores': '8704',
+                'tdp': '320',
+                'length': '299',
+                'recommended_psu': '750W',
+                'power_connectors': '2x 8-pin'
+            }
+        },
         {
             'name': 'NVIDIA RTX 4090',
             'description': 'Flagship graphics card with 24GB GDDR6X memory, based on the Ada Lovelace architecture.',
@@ -2119,7 +2728,7 @@ def add_products():
             }
         }
     ]
-    
+
     # Motherboard Products
     motherboard_products = [
         {
@@ -3521,9 +4130,109 @@ def add_products():
                 'wifi': 'WiFi 6E',
                 'ethernet': '2.5 Gigabit LAN'
             }
+        },
+        {
+            'name': 'Gigabyte B660M DS3H DDR4',
+            'description': 'Budget micro-ATX motherboard for Intel 12th and 13th Gen processors with DDR4 support.',
+            'price': 11999.99,
+            'stock': 25,
+            'category': 'motherboard',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2022/01/Gigabyte-B660M-DS3H-DDR4-12th-Gen-Micro-ATX-Motherboard.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Gigabyte',
+                'model': 'B660M DS3H DDR4',
+                'socket': 'LGA1700',
+                'chipset': 'Intel B660',
+                'form_factor': 'Micro-ATX',
+                'ram_type': 'DDR4',
+                'ram_slots': '4',
+                'max_ram': '128GB',
+                'pcie_slots': '1x PCIe 4.0 x16, 1x PCIe 3.0 x16',
+                'm2_slots': '2x M.2',
+                'sata_ports': '4x SATA III',
+                'usb_ports': '2x USB 3.2, 4x USB 2.0',
+                'wifi': 'None',
+                'ethernet': 'Gigabit LAN'
+            }
+        },
+        {
+            'name': 'Gigabyte B760M Aorus Elite',
+            'description': 'Mid-range micro-ATX motherboard for Intel 12th and 13th Gen processors with DDR5 support.',
+            'price': 17999.99,
+            'stock': 20,
+            'category': 'motherboard',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2023/01/Gigabyte-B760M-AORUS-ELITE-Intel-B760-Micro-ATX-Motherboard.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Gigabyte',
+                'model': 'B760M Aorus Elite',
+                'socket': 'LGA1700',
+                'chipset': 'Intel B760',
+                'form_factor': 'Micro-ATX',
+                'ram_type': 'DDR5',
+                'ram_slots': '4',
+                'max_ram': '128GB',
+                'pcie_slots': '1x PCIe 5.0 x16, 1x PCIe 4.0 x4',
+                'm2_slots': '3x M.2',
+                'sata_ports': '4x SATA III',
+                'usb_ports': '6x USB 3.2, 4x USB 2.0',
+                'wifi': 'None',
+                'ethernet': '2.5 Gigabit LAN'
+            }
+        },
+        {
+            'name': 'MSI B550 Tomahawk',
+            'description': 'Mid-range ATX motherboard for AMD Ryzen processors with solid features.',
+            'price': 18999.99,
+            'stock': 20,
+            'category': 'motherboard',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2020/07/MSI-MAG-B550-TOMAHAWK-ATX-Gaming-Motherboard.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'MSI',
+                'model': 'B550 Tomahawk',
+                'socket': 'AM4',
+                'chipset': 'AMD B550',
+                'form_factor': 'ATX',
+                'ram_type': 'DDR4',
+                'ram_slots': '4',
+                'max_ram': '128GB',
+                'pcie_slots': '2x PCIe 4.0 x16, 2x PCIe 3.0 x1',
+                'm2_slots': '2x M.2',
+                'sata_ports': '6x SATA III',
+                'usb_ports': '6x USB 3.2, 2x USB 2.0',
+                'wifi': 'None',
+                'ethernet': '2.5 Gigabit LAN + Gigabit LAN'
+            }
+        },
+        {
+            'name': 'ASUS TUF Gaming B450',
+            'description': 'Mid-range ATX motherboard for AMD Ryzen processors with durable components.',
+            'price': 12999.99,
+            'stock': 22,
+            'category': 'motherboard',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2021/07/ASUS-TUF-Gaming-B450-PLUS-II-ATX-Gaming-Motherboard.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'ASUS',
+                'model': 'TUF Gaming B450',
+                'socket': 'AM4',
+                'chipset': 'AMD B450',
+                'form_factor': 'ATX',
+                'ram_type': 'DDR4',
+                'ram_slots': '4',
+                'max_ram': '128GB',
+                'pcie_slots': '1x PCIe 3.0 x16, 1x PCIe 2.0 x16, 3x PCIe 2.0 x1',
+                'm2_slots': '1x M.2',
+                'sata_ports': '6x SATA III',
+                'usb_ports': '4x USB 3.2, 2x USB 2.0',
+                'wifi': 'None',
+                'ethernet': 'Gigabit LAN'
+            }
         }
     ]
-    
+
     # RAM Products
     ram_products = [
         {
@@ -4575,9 +5284,240 @@ def add_products():
                 'heat_spreader': 'Yes',
                 'rgb': 'No'
             }
+        },
+        {
+            'name': 'Adata XPG D30 16GB (2x8GB) DDR4-3200',
+            'description': 'Stylish performance memory modules with good overclocking potential and reliability.',
+            'price': 6499.99,
+            'stock': 30,
+            'category': 'ram',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2021/05/Adata-XPG-D30-16GB-2-x-8GB-DDR4-3200-Desktop-Memory.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Adata',
+                'model': 'XPG D30',
+                'type': 'DDR4',
+                'capacity': '16',
+                'speed': '3200 MHz',
+                'modules': '2x8GB',
+                'cas_latency': 'CL16',
+                'voltage': '1.35V',
+                'heat_spreader': 'Yes',
+                'rgb': 'No'
+            }
+        },
+        {
+            'name': 'HyperX Predator 16GB (2x8GB) DDR4-3600',
+            'description': 'Aggressive-looking high-performance memory designed for overclocking enthusiasts.',
+            'price': 9499.99,
+            'stock': 18,
+            'category': 'ram',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2020/11/HyperX-Predator-16GB-2-x-8GB-DDR4-3600-Desktop-Memory.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'HyperX',
+                'model': 'Predator',
+                'type': 'DDR4',
+                'capacity': '16',
+                'speed': '3600 MHz',
+                'modules': '2x8GB',
+                'cas_latency': 'CL17',
+                'voltage': '1.35V',
+                'heat_spreader': 'Yes',
+                'rgb': 'No'
+            }
+        },
+        {
+            'name': 'TeamGroup T-Force Vulcan Z 16GB (2x8GB) DDR4-3200',
+            'description': 'Affordable gaming memory with sleek low-profile heatspreader and solid performance.',
+            'price': 5499.99,
+            'stock': 32,
+            'category': 'ram',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2020/09/Team-T-Force-Vulcan-Z-16GB-2-x-8GB-DDR4-3200MHz-Memory.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'TeamGroup',
+                'model': 'T-Force Vulcan Z',
+                'type': 'DDR4',
+                'capacity': '16',
+                'speed': '3200 MHz',
+                'modules': '2x8GB',
+                'cas_latency': 'CL16',
+                'voltage': '1.35V',
+                'heat_spreader': 'Yes',
+                'rgb': 'No'
+            }
+        },
+        {
+            'name': 'Lexar ARES 16GB (2x8GB) DDR4-3200',
+            'description': 'Fast and reliable memory with aluminum heat spreader for improved thermal performance.',
+            'price': 5999.99,
+            'stock': 25,
+            'category': 'ram',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2021/09/Lexar-ARES-16GB-2-x-8GB-DDR4-3200-Desktop-Memory.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Lexar',
+                'model': 'ARES',
+                'type': 'DDR4',
+                'capacity': '16',
+                'speed': '3200 MHz',
+                'modules': '2x8GB',
+                'cas_latency': 'CL16',
+                'voltage': '1.35V',
+                'heat_spreader': 'Yes',
+                'rgb': 'No'
+            }
+        },
+        {
+            'name': 'G.Skill Flare X5 32GB (2x16GB) DDR5-5600',
+            'description': 'High-performance DDR5 memory designed for AMD Ryzen 7000 series processors.',
+            'price': 16999.99,
+            'stock': 15,
+            'category': 'ram',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2022/11/G.Skill-Flare-X5-32GB-2-x-16GB-DDR5-5600-Desktop-Memory.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'G.Skill',
+                'model': 'Flare X5',
+                'type': 'DDR5',
+                'capacity': '32',
+                'speed': '5600 MHz',
+                'modules': '2x16GB',
+                'cas_latency': 'CL36',
+                'voltage': '1.2V',
+                'heat_spreader': 'Yes',
+                'rgb': 'No'
+            }
+        },
+        {
+            'name': 'Adata XPG Lancer 32GB (2x16GB) DDR5-6000',
+            'description': 'High-end DDR5 gaming memory with RGB lighting and excellent performance.',
+            'price': 18999.99,
+            'stock': 12,
+            'category': 'ram',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2022/02/Adata-XPG-Lancer-32GB-2x16GB-DDR5-6000-RGB-Memory.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Adata',
+                'model': 'XPG Lancer',
+                'type': 'DDR5',
+                'capacity': '32',
+                'speed': '6000 MHz',
+                'modules': '2x16GB',
+                'cas_latency': 'CL40',
+                'voltage': '1.35V',
+                'heat_spreader': 'Yes',
+                'rgb': 'Yes'
+            }
+        },
+        {
+            'name': 'PNY XLR8 Gaming 16GB (2x8GB) DDR4-3600',
+            'description': 'Gaming memory with RGB lighting designed for performance enthusiasts.',
+            'price': 7999.99,
+            'stock': 20,
+            'category': 'ram',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2021/06/PNY-XLR8-Gaming-EPIC-X-RGB-16GB-2-x-8GB-DDR4-3600-Desktop-Memory.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'PNY',
+                'model': 'XLR8 Gaming',
+                'type': 'DDR4',
+                'capacity': '16',
+                'speed': '3600 MHz',
+                'modules': '2x8GB',
+                'cas_latency': 'CL18',
+                'voltage': '1.35V',
+                'heat_spreader': 'Yes',
+                'rgb': 'Yes'
+            }
+        },
+        {
+            'name': 'Patriot Viper Steel 16GB (2x8GB) DDR4-4000',
+            'description': 'High-frequency memory for extreme performance and overclocking.',
+            'price': 8999.99,
+            'stock': 15,
+            'category': 'ram',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2021/10/Patriot-Viper-Steel-16GB-2x8GB-DDR4-4000MHz-Desktop-Memory.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Patriot',
+                'model': 'Viper Steel',
+                'type': 'DDR4',
+                'capacity': '16',
+                'speed': '4000 MHz',
+                'modules': '2x8GB',
+                'cas_latency': 'CL19',
+                'voltage': '1.35V',
+                'heat_spreader': 'Yes',
+                'rgb': 'No'
+            }
+        },
+        {
+            'name': 'Silicon Power XPOWER Zenith 16GB (2x8GB) DDR4-3600',
+            'description': 'Performance gaming memory with aesthetic heatsink and reliable operation.',
+            'price': 6499.99,
+            'stock': 25,
+            'category': 'ram',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2021/12/Silicon-Power-XPOWER-Zenith-16GB-2-x-8GB-DDR4-3600-Desktop-Memory.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Silicon Power',
+                'model': 'XPOWER Zenith',
+                'type': 'DDR4',
+                'capacity': '16',
+                'speed': '3600 MHz',
+                'modules': '2x8GB',
+                'cas_latency': 'CL18',
+                'voltage': '1.35V',
+                'heat_spreader': 'Yes',
+                'rgb': 'No'
+            }
+        },
+        {
+            'name': 'GeIL Orion 32GB (2x16GB) DDR5-5600',
+            'description': 'Reliable DDR5 memory for next-generation computing with advanced power management.',
+            'price': 15999.99,
+            'stock': 18,
+            'category': 'ram',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2023/01/GeIL-Orion-32GB-2-x-16GB-DDR5-5600-Desktop-Memory.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'GeIL',
+                'model': 'Orion',
+                'type': 'DDR5',
+                'capacity': '32',
+                'speed': '5600 MHz',
+                'modules': '2x16GB',
+                'cas_latency': 'CL40',
+                'voltage': '1.25V',
+                'heat_spreader': 'Yes',
+                'rgb': 'No'
+            }
+        },
+        {
+            'name': 'Mushkin Redline 16GB (2x8GB) DDR4-3600',
+            'description': 'Extreme performance memory with frostbyte heatsink for superior cooling.',
+            'price': 7999.99,
+            'stock': 12,
+            'category': 'ram',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2021/11/Mushkin-Redline-16GB-2-x-8GB-DDR4-3600-Desktop-Memory.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Mushkin',
+                'model': 'Redline',
+                'type': 'DDR4',
+                'capacity': '16',
+                'speed': '3600 MHz',
+                'modules': '2x8GB',
+                'cas_latency': 'CL18',
+                'voltage': '1.35V',
+                'heat_spreader': 'Yes',
+                'rgb': 'No'
+            }
         }
     ]
-    
+
     # Storage Products
     storage_products = [
         {
@@ -4686,7 +5626,7 @@ def add_products():
             }
         }
     ]
-    
+
     # PSU Products
     psu_products = [
         {
@@ -5843,11 +6783,382 @@ def add_products():
                 'protections': 'OVP, UVP, OCP, OPP, SCP',
                 'warranty': '10 years'
             }
+        },
+        {
+            'name': 'Corsair CV550 550W',
+            'description': 'Entry-level 80 Plus Bronze power supply for basic builds.',
+            'price': 4499.99,
+            'stock': 40,
+            'category': 'psu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2020/09/Corsair-CV-Series-CV550-550-Watt-Power-Supply.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Corsair',
+                'model': 'CV550',
+                'wattage': '550W',
+                'efficiency': '80 Plus Bronze',
+                'modularity': 'Non-Modular',
+                'fan_size': '120mm',
+                'dimensions': '140 x 150 x 86mm',
+                'connectors': 'ATX, 1x EPS, 2x PCIe, 6x SATA, 3x Molex',
+                'protections': 'OVP, UVP, OCP, OPP, SCP',
+                'warranty': '3 years'
+            }
+        },
+        {
+            'name': 'Cooler Master MWE 550 V2',
+            'description': 'Reliable entry-level power supply with DC-to-DC technology.',
+            'price': 4899.99,
+            'stock': 35,
+            'category': 'psu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2021/02/Cooler-Master-MWE-550-V2-550-Watt-Power-Supply.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Cooler Master',
+                'model': 'MWE 550 V2',
+                'wattage': '550W',
+                'efficiency': '80 Plus Bronze',
+                'modularity': 'Non-Modular',
+                'fan_size': '120mm',
+                'dimensions': '140 x 150 x 86mm',
+                'connectors': 'ATX, 1x EPS, 2x PCIe, 6x SATA, 3x Molex',
+                'protections': 'OVP, UVP, OCP, OPP, SCP',
+                'warranty': '5 years'
+            }
+        },
+        {
+            'name': 'DeepCool PK650D',
+            'description': 'Affordable 80 Plus Bronze power supply with quiet operation.',
+            'price': 5399.99,
+            'stock': 30,
+            'category': 'psu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2022/07/DeepCool-PK650D-650-Watt-80-PLUS-Bronze-Power-Supply.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'DeepCool',
+                'model': 'PK650D',
+                'wattage': '650W',
+                'efficiency': '80 Plus Bronze',
+                'modularity': 'Non-Modular',
+                'fan_size': '120mm',
+                'dimensions': '140 x 150 x 86mm',
+                'connectors': 'ATX, 1x EPS, 2x PCIe, 6x SATA, 3x Molex',
+                'protections': 'OVP, UVP, OCP, OPP, SCP',
+                'warranty': '5 years'
+            }
+        },
+        {
+            'name': 'Antec NeoECO 650W',
+            'description': 'Reliable 80 Plus Gold power supply with CircuitShield protection.',
+            'price': 7999.99,
+            'stock': 25,
+            'category': 'psu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2021/11/Antec-NeoECO-Gold-Zen-650W-Power-Supply.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Antec',
+                'model': 'NeoECO 650W',
+                'wattage': '650W',
+                'efficiency': '80 Plus Gold',
+                'modularity': 'Non-Modular',
+                'fan_size': '120mm',
+                'dimensions': '140 x 150 x 86mm',
+                'connectors': 'ATX, 1x EPS, 2x PCIe, 6x SATA, 3x Molex',
+                'protections': 'OVP, UVP, OCP, OPP, SCP',
+                'warranty': '5 years'
+            }
+        },
+        {
+            'name': 'Seasonic S12III 650W',
+            'description': 'Reliable entry-level power supply from a trusted brand.',
+            'price': 5999.99,
+            'stock': 30,
+            'category': 'psu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2020/10/Seasonic-S12III-650W-80-Power-Supply.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Seasonic',
+                'model': 'S12III',
+                'wattage': '650W',
+                'efficiency': '80 Plus Bronze',
+                'modularity': 'Non-Modular',
+                'fan_size': '120mm',
+                'dimensions': '140 x 150 x 86mm',
+                'connectors': 'ATX, 1x EPS, 2x PCIe, 6x SATA, 3x Molex',
+                'protections': 'OVP, UVP, OCP, OPP, SCP',
+                'warranty': '5 years'
+            }
+        },
+        {
+            'name': 'Gigabyte P650B',
+            'description': 'Affordable 80 Plus Bronze power supply with smart fan control.',
+            'price': 4999.99,
+            'stock': 35,
+            'category': 'psu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2021/05/Gigabyte-P650B-650W-80-Plus-Bronze-Power-Supply.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Gigabyte',
+                'model': 'P650B',
+                'wattage': '650W',
+                'efficiency': '80 Plus Bronze',
+                'modularity': 'Non-Modular',
+                'fan_size': '120mm',
+                'dimensions': '140 x 150 x 86mm',
+                'connectors': 'ATX, 1x EPS, 2x PCIe, 6x SATA, 3x Molex',
+                'protections': 'OVP, UVP, OCP, OPP, SCP',
+                'warranty': '3 years'
+            }
+        },
+        {
+            'name': 'Corsair SF600 SFX',
+            'description': 'Compact SFX power supply for small form factor builds.',
+            'price': 13999.99,
+            'stock': 15,
+            'category': 'psu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2021/08/Corsair-SF600-600-Watt-80-PLUS-Gold-SFX-Power-Supply.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Corsair',
+                'model': 'SF600',
+                'wattage': '600W',
+                'efficiency': '80 Plus Gold',
+                'modularity': 'Fully Modular',
+                'fan_size': '92mm',
+                'dimensions': '100 x 125 x 63mm',
+                'connectors': 'ATX, 1x EPS, 2x PCIe, 6x SATA, 2x Molex',
+                'protections': 'OVP, UVP, OCP, OPP, SCP',
+                'warranty': '7 years'
+            }
+        },
+        {
+            'name': 'EVGA 600 W1',
+            'description': 'Basic 80 Plus White power supply for budget builds.',
+            'price': 3999.99,
+            'stock': 40,
+            'category': 'psu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2021/04/EVGA-600-W1-600-Watt-80-PLUS-White-Power-Supply.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'EVGA',
+                'model': '600 W1',
+                'wattage': '600W',
+                'efficiency': '80 Plus White',
+                'modularity': 'Non-Modular',
+                'fan_size': '120mm',
+                'dimensions': '140 x 150 x 85mm',
+                'connectors': 'ATX, 1x EPS, 2x PCIe, 6x SATA, 3x Molex',
+                'protections': 'OVP, UVP, OCP, OPP, SCP',
+                'warranty': '3 years'
+            }
+        },
+        {
+            'name': 'Fractal Ion+ 760P',
+            'description': 'High-quality 80 Plus Platinum power supply with excellent performance.',
+            'price': 14999.99,
+            'stock': 18,
+            'category': 'psu',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2021/10/Fractal-Design-Ion-760P-760-Watt-80-PLUS-Platinum-Fully-Modular-PSU.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Fractal Design',
+                'model': 'Ion+ 760P',
+                'wattage': '760W',
+                'efficiency': '80 Plus Platinum',
+                'modularity': 'Fully Modular',
+                'fan_size': '140mm',
+                'dimensions': '150 x 150 x 86mm',
+                'connectors': 'ATX, 2x EPS, 4x PCIe, 10x SATA, 4x Molex',
+                'protections': 'OVP, UVP, OCP, OPP, SCP',
+                'warranty': '10 years'
+            }
         }
     ]
-    
+
     # Case Products
     case_products = [
+        {
+            'name': 'NZXT H510',
+            'description': 'Compact mid-tower ATX case with minimalist design and excellent cable management.',
+            'price': 7499.99,
+            'stock': 25,
+            'category': 'case',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2021/06/NZXT-H510-Compact-Mid-Tower-Case-Matte-Black.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'NZXT',
+                'model': 'H510',
+                'form_factor': 'Mid Tower',
+                'motherboard_support': 'ATX, Micro-ATX, Mini-ITX',
+                'dimensions': '428mm x 210mm x 460mm',
+                'material': 'SGCC Steel, Tempered Glass',
+                'color': 'Matte Black',
+                'side_panel': 'Tempered Glass',
+                'drive_bays': '2.5" (7), 3.5" (2+1)',
+                'expansion_slots': '7',
+                'included_fans': '1x 120mm front, 1x 120mm rear',
+                'max_gpu_length': '381mm',
+                'max_cpu_cooler_height': '165mm',
+                'max_psu_length': '210mm',
+                'io_ports': '1x USB 3.1 Gen 2 Type-C, 1x USB 3.1 Gen 1 Type-A, 1x Audio/Mic'
+            }
+        },
+        {
+            'name': 'Corsair 4000D Airflow',
+            'description': 'Mid-tower ATX case with high-airflow front panel design and tempered glass side panel.',
+            'price': 8799.99,
+            'stock': 20,
+            'category': 'case',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2020/11/Corsair-4000D-Airflow-Tempered-Glass-Mid-Tower-ATX-Case-Black.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Corsair',
+                'model': '4000D Airflow',
+                'form_factor': 'Mid Tower',
+                'motherboard_support': 'ATX, Micro-ATX, Mini-ITX',
+                'dimensions': '453mm x 230mm x 466mm',
+                'material': 'Steel, Tempered Glass',
+                'color': 'Black',
+                'side_panel': 'Tempered Glass',
+                'drive_bays': '2.5" (4), 3.5" (2)',
+                'expansion_slots': '7',
+                'included_fans': '2x 120mm AirGuide',
+                'max_gpu_length': '360mm',
+                'max_cpu_cooler_height': '170mm',
+                'max_psu_length': '180mm',
+                'io_ports': '1x USB 3.1 Type-C, 1x USB 3.0, 1x Audio/Mic'
+            }
+        },
+        {
+            'name': 'Lian Li Lancool 215',
+            'description': 'Mid-tower ATX case with excellent airflow, dual 200mm ARGB front fans and mesh front panel.',
+            'price': 7999.99,
+            'stock': 15,
+            'category': 'case',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2020/09/Lian-Li-Lancool-215-ARGB-Black-Mid-Tower-Cabinet.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Lian Li',
+                'model': 'Lancool 215',
+                'form_factor': 'Mid Tower',
+                'motherboard_support': 'E-ATX, ATX, Micro-ATX, Mini-ITX',
+                'dimensions': '462mm x 215mm x 482mm',
+                'material': 'Steel, Tempered Glass',
+                'color': 'Black',
+                'side_panel': 'Tempered Glass',
+                'drive_bays': '2.5" (4), 3.5" (3)',
+                'expansion_slots': '7',
+                'included_fans': '2x 200mm ARGB front, 1x 120mm rear',
+                'max_gpu_length': '370mm',
+                'max_cpu_cooler_height': '166mm',
+                'max_psu_length': '180mm',
+                'io_ports': '2x USB 3.0, 1x Audio/Mic, ARGB Controller'
+            }
+        },
+        {
+            'name': 'Cooler Master MB511',
+            'description': 'Mid-tower ATX case with fine mesh front panel for high airflow and ARGB fans.',
+            'price': 6499.99,
+            'stock': 18,
+            'category': 'case',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2020/07/Cooler-Master-MasterBox-MB511-ARGB-Mid-Tower-Cabinet.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Cooler Master',
+                'model': 'MasterBox MB511 ARGB',
+                'form_factor': 'Mid Tower',
+                'motherboard_support': 'ATX, Micro-ATX, Mini-ITX',
+                'dimensions': '496mm x 217mm x 469mm',
+                'material': 'Steel, Plastic, Mesh',
+                'color': 'Black',
+                'side_panel': 'Acrylic',
+                'drive_bays': '2.5" (4), 3.5" (2)',
+                'expansion_slots': '7',
+                'included_fans': '3x 120mm ARGB front, 1x 120mm rear',
+                'max_gpu_length': '400mm',
+                'max_cpu_cooler_height': '165mm',
+                'max_psu_length': '180mm',
+                'io_ports': '2x USB 3.0, 1x Audio/Mic'
+            }
+        },
+        {
+            'name': 'Antec NX410',
+            'description': 'Mid-tower gaming case with mesh front panel, ARGB fans and tempered glass side panel.',
+            'price': 5999.99,
+            'stock': 20,
+            'category': 'case',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2021/07/Antec-NX410-Mid-Tower-Gaming-Case-Black.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Antec',
+                'model': 'NX410',
+                'form_factor': 'Mid Tower',
+                'motherboard_support': 'ATX, Micro-ATX, Mini-ITX',
+                'dimensions': '425mm x 220mm x 480mm',
+                'material': 'SPCC Steel, Tempered Glass',
+                'color': 'Black',
+                'side_panel': 'Tempered Glass',
+                'drive_bays': '2.5" (5), 3.5" (2)',
+                'expansion_slots': '7',
+                'included_fans': '2x 140mm ARGB front, 1x 120mm rear',
+                'max_gpu_length': '330mm',
+                'max_cpu_cooler_height': '175mm',
+                'max_psu_length': '160mm',
+                'io_ports': '2x USB 3.0, 1x Audio/Mic'
+            }
+        },
+        {
+            'name': 'Ant Esports ICE 200TG',
+            'description': 'Budget-friendly mid-tower gaming case with tempered glass and RGB fans.',
+            'price': 3999.99,
+            'stock': 30,
+            'category': 'case',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2021/07/Ant-Esports-ICE-200TG-Mid-Tower-Computer-Case.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Ant Esports',
+                'model': 'ICE 200TG',
+                'form_factor': 'Mid Tower',
+                'motherboard_support': 'ATX, Micro-ATX, Mini-ITX',
+                'dimensions': '365mm x 200mm x 440mm',
+                'material': 'SPCC Steel, Tempered Glass',
+                'color': 'Black',
+                'side_panel': 'Tempered Glass',
+                'drive_bays': '2.5" (2), 3.5" (2)',
+                'expansion_slots': '7',
+                'included_fans': '4x 120mm Rainbow RGB',
+                'max_gpu_length': '340mm',
+                'max_cpu_cooler_height': '160mm',
+                'max_psu_length': '180mm',
+                'io_ports': '1x USB 3.0, 2x USB 2.0, 1x Audio/Mic'
+            }
+        },
+        {
+            'name': 'Deepcool Matrexx 55 Mesh',
+            'description': 'Mid-tower case with mesh front panel for optimal airflow and 4 ARGB fans.',
+            'price': 5499.99,
+            'stock': 22,
+            'category': 'case',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2021/02/Deepcool-MATREXX-55-MESH-ADD-RGB-4F-Mid-Tower-Cabinet.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Deepcool',
+                'model': 'Matrexx 55 Mesh',
+                'form_factor': 'Mid Tower',
+                'motherboard_support': 'E-ATX, ATX, Micro-ATX, Mini-ITX',
+                'dimensions': '440mm x 210mm x 480mm',
+                'material': 'Steel, Tempered Glass, Mesh',
+                'color': 'Black',
+                'side_panel': 'Tempered Glass',
+                'drive_bays': '2.5" (4), 3.5" (2)',
+                'expansion_slots': '7',
+                'included_fans': '3x 120mm ARGB front, 1x 120mm ARGB rear',
+                'max_gpu_length': '370mm',
+                'max_cpu_cooler_height': '168mm',
+                'max_psu_length': '170mm',
+                'io_ports': '2x USB 3.0, 1x Audio/Mic'
+            }
+        },
         {
             'name': 'Lian Li O11 Dynamic EVO',
             'description': 'Premium mid-tower case with dual-chamber design, excellent airflow, and tempered glass panels.',
@@ -7305,7 +8616,7 @@ def add_products():
             }
         }
     ]
-    
+
     # Cooling Products
     cooling_products = [
         {
@@ -8580,10 +9891,120 @@ def add_products():
             }
         }
     ]
-    
+
     # Storage Products
     storage_products = [
         # NVMe SSDs
+        {
+            'name': 'Samsung 980 500GB NVMe SSD',
+            'description': 'Entry-level NVMe SSD with good performance and value for everyday computing.',
+            'price': 5999.99,
+            'stock': 40,
+            'category': 'storage',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2021/03/Samsung-980-500GB-M.2-NVMe-SSD.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Samsung',
+                'model': '980',
+                'capacity': '500GB',
+                'interface': 'PCIe 3.0 x4 NVMe',
+                'form_factor': 'M.2 2280',
+                'sequential_read': '3100 MB/s',
+                'sequential_write': '2600 MB/s',
+                'random_read': '400K IOPS',
+                'random_write': '470K IOPS',
+                'endurance': '300 TBW',
+                'warranty': '5 years'
+            }
+        },
+        {
+            'name': 'Samsung 980 Pro 1TB PCIe 4.0 NVMe SSD',
+            'description': 'High-performance PCIe 4.0 NVMe SSD with exceptional speed for intensive workloads.',
+            'price': 14499.99,
+            'stock': 30,
+            'category': 'storage',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2021/02/Samsung-980-PRO-1TB-PCIe-4.0-NVMe-M.2-Internal-SSD.jpg',
+            'featured': True,
+            'specs': {
+                'brand': 'Samsung',
+                'model': '980 Pro',
+                'capacity': '1TB',
+                'interface': 'PCIe 4.0 x4 NVMe',
+                'form_factor': 'M.2 2280',
+                'sequential_read': '7000 MB/s',
+                'sequential_write': '5000 MB/s',
+                'random_read': '1000K IOPS',
+                'random_write': '1000K IOPS',
+                'endurance': '600 TBW',
+                'warranty': '5 years'
+            }
+        },
+        {
+            'name': 'WD Black SN770 1TB NVMe SSD',
+            'description': 'High-performance NVMe SSD designed for gaming and creative workloads.',
+            'price': 8999.99,
+            'stock': 35,
+            'category': 'storage',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2022/02/Western-Digital-WD-BLACK-SN770-1TB-NVMe-SSD.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Western Digital',
+                'model': 'WD Black SN770',
+                'capacity': '1TB',
+                'interface': 'PCIe 4.0 x4 NVMe',
+                'form_factor': 'M.2 2280',
+                'sequential_read': '5150 MB/s',
+                'sequential_write': '4900 MB/s',
+                'random_read': '740K IOPS',
+                'random_write': '800K IOPS',
+                'endurance': '600 TBW',
+                'warranty': '5 years'
+            }
+        },
+        {
+            'name': 'WD Black SN850X 1TB NVMe SSD',
+            'description': 'Premium PCIe 4.0 NVMe SSD with heatsink for sustained high performance in gaming and content creation.',
+            'price': 12299.99,
+            'stock': 25,
+            'category': 'storage',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2022/09/Western-Digital-WD-BLACK-SN850X-1TB-NVMe-SSD.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Western Digital',
+                'model': 'WD Black SN850X',
+                'capacity': '1TB',
+                'interface': 'PCIe 4.0 x4 NVMe',
+                'form_factor': 'M.2 2280',
+                'sequential_read': '7300 MB/s',
+                'sequential_write': '6300 MB/s',
+                'random_read': '800K IOPS',
+                'random_write': '1100K IOPS',
+                'endurance': '600 TBW',
+                'warranty': '5 years'
+            }
+        },
+        {
+            'name': 'Crucial P3 1TB NVMe SSD',
+            'description': 'Budget-friendly NVMe SSD with good performance for everyday computing and gaming.',
+            'price': 5699.99,
+            'stock': 45,
+            'category': 'storage',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2022/08/Crucial-P3-1TB-PCIe-M.2-2280-NVMe-SSD.jpg',
+            'featured': False,
+            'specs': {
+                'brand': 'Crucial',
+                'model': 'P3',
+                'capacity': '1TB',
+                'interface': 'PCIe 3.0 x4 NVMe',
+                'form_factor': 'M.2 2280',
+                'sequential_read': '3500 MB/s',
+                'sequential_write': '3000 MB/s',
+                'random_read': '450K IOPS',
+                'random_write': '600K IOPS',
+                'endurance': '220 TBW',
+                'warranty': '5 years'
+            }
+        },
         {
             'name': 'Samsung 980 PRO 1TB PCIe 4.0 NVMe SSD',
             'description': 'High-performance PCIe 4.0 NVMe SSD with up to 7,000 MB/s read and 5,000 MB/s write speeds.',
@@ -9025,7 +10446,7 @@ def add_products():
                 'warranty': '5 years'
             }
         },
-        
+
         # SATA SSDs
         {
             'name': 'Samsung 870 EVO 1TB SATA SSD',
@@ -9342,7 +10763,7 @@ def add_products():
                 'warranty': '3 years'
             }
         },
-        
+
         # HDDs (Hard Disk Drives)
         {
             'name': 'Seagate BarraCuda 2TB 7200RPM HDD',
@@ -9660,7 +11081,7 @@ def add_products():
             }
         }
     ]
-    
+
     # WiFi Adapters (Peripherals)
     wifi_adapters_products = [
         {
@@ -9766,7 +11187,7 @@ def add_products():
             }
         }
     ]
-    
+
     # Bluetooth Adapters (Peripherals)
     bluetooth_adapters_products = [
         {
@@ -9872,7 +11293,7 @@ def add_products():
             }
         }
     ]
-    
+
     # Mouse Products (Peripherals)
     mouse_products = [
         {
@@ -10294,7 +11715,7 @@ def add_products():
             }
         }
     ]
-    
+
     # Keyboard Products (Peripherals)
     keyboard_products = [
         {
@@ -10431,7 +11852,7 @@ def add_products():
             }
         }
     ]
-    
+
     # Keyboard+Mouse Combo Products (Peripherals)
     keyboard_mouse_combo_products = [
         {
@@ -10530,7 +11951,7 @@ def add_products():
             }
         }
     ]
-    
+
     # Monitors 
     monitor_products = [
         {
@@ -11736,7 +13157,7 @@ def add_products():
             }
         }
     ]
-    
+
     # Gaming Consoles
     gaming_console_products = [
         {
@@ -12203,7 +13624,7 @@ def add_products():
             }
         }
     ]
-    
+
     # Mouse Pads
     mousepad_products = [
         {
@@ -12302,7 +13723,7 @@ def add_products():
             }
         }
     ]
-    
+
     # Case Fans (Peripherals)
     case_fan_products = [
         {
@@ -12402,7 +13823,7 @@ def add_products():
             }
         }
     ]
-    
+
     # Speakers (Peripherals)
     speaker_products = [
         {
@@ -12919,7 +14340,7 @@ def add_products():
             }
         }
     ]
-    
+
     # PCI Expansion Cards (Peripherals)
     pcie_card_products = [
         {
@@ -13417,7 +14838,207 @@ def add_products():
             }
         }
     ]
-    
+
+    # Prebuilt Intel PC Products
+    prebuilt_intel_products = [
+        {
+            'name': 'Gaming Beast - Intel Core i9',
+            'description': 'High-end gaming PC featuring Intel Core i9 processor, RTX 4090, 32GB DDR5 RAM and 2TB NVMe SSD.',
+            'price': 299999.99,
+            'stock': 5,
+            'category': 'prebuilt_intel',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2023/11/Custom-Gaming-PC-Core-i9.jpg',
+            'featured': True,
+            'specs': {
+                'processor': 'Intel Core i9-14900K',
+                'cooling': 'NZXT Kraken X63 RGB 280mm AIO Liquid Cooler',
+                'motherboard': 'MSI Z790 Tomahawk WiFi',
+                'memory': '32GB (2x16GB) Corsair Vengeance RGB DDR5-6000',
+                'graphics': 'NVIDIA GeForce RTX 4090 24GB',
+                'storage': '2TB Samsung 980 Pro NVMe SSD',
+                'power_supply': 'Corsair RM1000x 1000W 80+ Gold',
+                'case': 'Lian Li O11 Dynamic',
+                'operating_system': 'Windows 11 Pro',
+                'warranty': '2 Years',
+                'case_fans': '6x RGB Fans for optimal airflow',
+                'wifi': 'Yes, WiFi 6E',
+                'bluetooth': 'Yes, Bluetooth 5.2'
+            }
+        },
+        {
+            'name': 'Gaming Pro - Intel Core i7',
+            'description': 'Powerful gaming PC with Intel Core i7, RTX 4070 Ti, 32GB DDR5 RAM and 1TB NVMe SSD.',
+            'price': 199999.99,
+            'stock': 8,
+            'category': 'prebuilt_intel',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2023/10/Custom-Gaming-PC-Core-i7.jpg',
+            'featured': True,
+            'specs': {
+                'processor': 'Intel Core i7-13700K',
+                'cooling': 'Cooler Master MasterLiquid ML240L RGB V2 Liquid Cooler',
+                'motherboard': 'ASUS TUF Gaming Z690-Plus WiFi',
+                'memory': '32GB (2x16GB) G.Skill Trident Z5 RGB DDR5-5600',
+                'graphics': 'NVIDIA GeForce RTX 4070 Ti 12GB',
+                'storage': '1TB WD Black SN850X NVMe SSD',
+                'power_supply': 'Corsair RM850x 850W 80+ Gold',
+                'case': 'Corsair 4000D Airflow',
+                'operating_system': 'Windows 11 Home',
+                'warranty': '2 Years',
+                'case_fans': '4x RGB Fans',
+                'wifi': 'Yes, WiFi 6',
+                'bluetooth': 'Yes, Bluetooth 5.2'
+            }
+        },
+        {
+            'name': 'Gaming Plus - Intel Core i5',
+            'description': 'Mid-range gaming PC featuring Intel Core i5, RTX 4060 Ti, 16GB DDR4 RAM and 1TB NVMe SSD.',
+            'price': 149999.99,
+            'stock': 12,
+            'category': 'prebuilt_intel',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2023/09/Custom-Gaming-PC-Core-i5.jpg',
+            'featured': False,
+            'specs': {
+                'processor': 'Intel Core i5-13600K',
+                'cooling': 'DeepCool AK620 Air Cooler',
+                'motherboard': 'MSI MAG B760 Tomahawk WiFi',
+                'memory': '16GB (2x8GB) Kingston Fury Beast DDR4-3600',
+                'graphics': 'NVIDIA GeForce RTX 4060 Ti 8GB',
+                'storage': '1TB Kingston NV2 NVMe SSD',
+                'power_supply': 'Corsair RM750x 750W 80+ Gold',
+                'case': 'NZXT H5 Flow',
+                'operating_system': 'Windows 11 Home',
+                'warranty': '2 Years',
+                'case_fans': '3x RGB Fans',
+                'wifi': 'Yes, WiFi 6',
+                'bluetooth': 'Yes, Bluetooth 5.1'
+            }
+        },
+        {
+            'name': 'Starter Gaming PC - Intel Core i3',
+            'description': 'Entry-level gaming PC with Intel Core i3, RTX 3050, 16GB DDR4 RAM and 512GB NVMe SSD.',
+            'price': 79999.99,
+            'stock': 15,
+            'category': 'prebuilt_intel',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2023/08/Entry-Level-Gaming-PC.jpg',
+            'featured': False,
+            'specs': {
+                'processor': 'Intel Core i3-13100',
+                'cooling': 'Stock Intel Cooler',
+                'motherboard': 'Gigabyte B660M DS3H DDR4',
+                'memory': '16GB (2x8GB) Corsair Vengeance LPX DDR4-3200',
+                'graphics': 'NVIDIA GeForce RTX 3050 8GB',
+                'storage': '512GB WD Blue SN570 NVMe SSD',
+                'power_supply': 'Corsair CV550 550W 80+ Bronze',
+                'case': 'Antec NX410 ARGB',
+                'operating_system': 'Windows 11 Home',
+                'warranty': '1 Year',
+                'case_fans': '2x RGB Fans',
+                'wifi': 'No',
+                'bluetooth': 'No'
+            }
+        }
+    ]
+
+    # Prebuilt AMD PC Products
+    prebuilt_amd_products = [
+        {
+            'name': 'Ryzen Beast - AMD Ryzen 9',
+            'description': 'Ultimate AMD gaming PC with Ryzen 9 7950X, RX 7900 XTX, 64GB DDR5 RAM and 2TB NVMe SSD.',
+            'price': 279999.99,
+            'stock': 5,
+            'category': 'prebuilt_amd',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2023/11/Custom-Gaming-PC-Ryzen-9.jpg',
+            'featured': True,
+            'specs': {
+                'processor': 'AMD Ryzen 9 7950X',
+                'cooling': 'NZXT Kraken X73 RGB 360mm AIO Liquid Cooler',
+                'motherboard': 'ASUS ROG Crosshair X670E Hero',
+                'memory': '64GB (2x32GB) G.Skill Trident Z5 RGB DDR5-6000',
+                'graphics': 'AMD Radeon RX 7900 XTX 24GB',
+                'storage': '2TB Samsung 990 Pro NVMe SSD',
+                'power_supply': 'Corsair HX1000 1000W 80+ Platinum',
+                'case': 'Fractal Design Meshify 2',
+                'operating_system': 'Windows 11 Pro',
+                'warranty': '2 Years',
+                'case_fans': '6x RGB Fans',
+                'wifi': 'Yes, WiFi 6E',
+                'bluetooth': 'Yes, Bluetooth 5.2'
+            }
+        },
+        {
+            'name': 'Ryzen Pro - AMD Ryzen 7',
+            'description': 'High-performance AMD gaming PC with Ryzen 7 7800X3D, RX 7800 XT, 32GB DDR5 RAM and 1TB NVMe SSD.',
+            'price': 189999.99,
+            'stock': 8,
+            'category': 'prebuilt_amd',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2023/10/Custom-Gaming-PC-Ryzen-7.jpg',
+            'featured': True,
+            'specs': {
+                'processor': 'AMD Ryzen 7 7800X3D',
+                'cooling': 'Corsair H150i Elite Capellix 360mm AIO Liquid Cooler',
+                'motherboard': 'MSI MPG B650 CARBON WIFI',
+                'memory': '32GB (2x16GB) Corsair Vengeance RGB DDR5-5600',
+                'graphics': 'AMD Radeon RX 7800 XT 16GB',
+                'storage': '1TB WD Black SN850X NVMe SSD',
+                'power_supply': 'Corsair RM850x 850W 80+ Gold',
+                'case': 'Corsair 5000D Airflow',
+                'operating_system': 'Windows 11 Home',
+                'warranty': '2 Years',
+                'case_fans': '5x RGB Fans',
+                'wifi': 'Yes, WiFi 6E',
+                'bluetooth': 'Yes, Bluetooth 5.2'
+            }
+        },
+        {
+            'name': 'Ryzen Plus - AMD Ryzen 5',
+            'description': 'Mid-range AMD gaming PC with Ryzen 5 7600, RX 6700 XT, 16GB DDR5 RAM and 1TB NVMe SSD.',
+            'price': 129999.99,
+            'stock': 12,
+            'category': 'prebuilt_amd',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2023/09/Custom-Gaming-PC-Ryzen-5.jpg',
+            'featured': False,
+            'specs': {
+                'processor': 'AMD Ryzen 5 7600',
+                'cooling': 'DeepCool AK620 Air Cooler',
+                'motherboard': 'Gigabyte B650 Aorus Elite AX',
+                'memory': '16GB (2x8GB) Kingston Fury Beast DDR5-5200',
+                'graphics': 'AMD Radeon RX 6700 XT 12GB',
+                'storage': '1TB Kingston KC3000 NVMe SSD',
+                'power_supply': 'Corsair RM750x 750W 80+ Gold',
+                'case': 'Phanteks Eclipse P400A',
+                'operating_system': 'Windows 11 Home',
+                'warranty': '2 Years',
+                'case_fans': '3x RGB Fans',
+                'wifi': 'Yes, WiFi 6E',
+                'bluetooth': 'Yes, Bluetooth 5.2'
+            }
+        },
+        {
+            'name': 'Ryzen APU Gaming - AMD Ryzen 5 8600G',
+            'description': 'Budget AMD APU gaming PC with Ryzen 5 8600G, integrated Radeon 760M graphics, 16GB DDR5 RAM and 512GB NVMe SSD.',
+            'price': 69999.99,
+            'stock': 15,
+            'category': 'prebuilt_amd',
+            'image_url': 'https://www.pcstudio.in/wp-content/uploads/2024/01/Budget-Gaming-PC-Ryzen-APU.jpg',
+            'featured': False,
+            'specs': {
+                'processor': 'AMD Ryzen 5 8600G (with Radeon 760M graphics)',
+                'cooling': 'Deepcool GAMMAXX 400',
+                'motherboard': 'ASRock A620M PRO RS',
+                'memory': '16GB (2x8GB) Kingston Fury Beast DDR5-4800',
+                'graphics': 'Integrated AMD Radeon 760M',
+                'storage': '512GB Kingston NV2 NVMe SSD',
+                'power_supply': 'Corsair CV550 550W 80+ Bronze',
+                'case': 'Deepcool Matrexx 55 MESH',
+                'operating_system': 'Windows 11 Home',
+                'warranty': '1 Year',
+                'case_fans': '2x RGB Fans',
+                'wifi': 'No (Optional USB adapter available)',
+                'bluetooth': 'No'
+            }
+        }
+    ]
+
     # Create the all_products list by combining all product categories
     all_products = (
         cpu_products + 
@@ -13438,18 +15059,20 @@ def add_products():
         monitor_products +
         gaming_console_products +
         speaker_products +
-        pcie_card_products
+        pcie_card_products +
+        prebuilt_intel_products +
+        prebuilt_amd_products
     )
-    
+
     for product_data in all_products:
         specs_data = product_data.pop('specs')
         product = Product(**product_data)
         product.specs = specs_data
         db.session.add(product)
-    
+
     # Create admin user if not exists
-    existing_admin = User.query.filter_by(email='admin@example.com').first()
-    if not existing_admin:
+    existing_admin = User.query.filter_by(username='admin').first()
+    if not existing_admin and User.query.filter_by(email='admin@example.com').first() is None:
         admin = User(
             username='admin',
             email='admin@example.com',
@@ -13460,7 +15083,7 @@ def add_products():
         admin_message = "Created admin user with email: admin@example.com and password: admin123"
     else:
         admin_message = "Admin user already exists, skipped creation"
-    
+
     db.session.commit()
     print(f"Added {len(all_products)} products to the database.")
     print(admin_message)
@@ -13486,7 +15109,7 @@ def init_db(force=False):
                 Product.query.delete()
                 db.session.commit()
                 print("Existing products deleted. Re-initializing database.")
-            
+
             add_products()
         else:
             print(f"Database already has {products_count} products. Skipping initialization.")

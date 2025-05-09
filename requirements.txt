@@ -49,5 +49,6 @@ tzdata==2025.2
 urllib3==2.4.0
 Werkzeug==3.1.3
 WTForms==3.2.1
-pillow==10.0.0
-reportlab
+chardet==5.2.0
+pillow==11.2.1
+reportlab==4.4.0
